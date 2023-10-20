@@ -1,0 +1,5 @@
+id_type,id_type_group,freq_id_type_overall,freq_id_type_sciscore,freq_id_type_ct_registries,freq_id_type_nct,freq_id_type_rtransparent,freq_id_type_trialidentifier
+IRCT,trn,1,1,1,0,0,0
+ctgov,trn,10,5,10,8,0,3
+grant_number,false_positive,2,0,2,0,0,0
+osf,protocol,1,1,0,0,1,0
