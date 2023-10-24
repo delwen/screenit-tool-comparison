@@ -27,6 +27,9 @@ print(nrow(data_man_check))
 data_man_check <- data_man_check |>
   mutate(
     
+    # url of the paper to check
+    paper_url = paste0("https://pubmed.ncbi.nlm.nih.gov/", PMCID, "/"),
+    
     # broad category of id type (e.g., “trn”, “protocol”, or “false positive”)
     id_type_group = " ",
     
