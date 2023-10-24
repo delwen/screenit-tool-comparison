@@ -27,11 +27,11 @@ print(nrow(data_man_check))
 data_man_check <- data_man_check |>
   mutate(
     
+    # broad category of id type (e.g., “trn”, “protocol”, or “false positive”)
+    id_type_group = " ",
+    
     # capture specific id type (e.g., “ctgov”, or “osf”, or “funder id”)
     id_type = " ",
-    
-    # capture  broader category for id type (e.g., “trn”, “protocol”, or “false positive”)
-    id_type_group = " ",
     
     # boolean for whether found id in the abstract
     id_in_abstract = " ",
