@@ -45,7 +45,7 @@ data <- read_csv(here("testing", "regset.csv"))
 table(data$id_type_group)
 ```
 
-The three main groups of ID observed were trial registration numbers (trn), protocols and false positives.
+The three main groups of ID observed were `trial registration numbers (trn)`, `protocols`, and `false positives`.
 
 ### TRNs
 
