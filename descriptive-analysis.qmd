@@ -1,0 +1,117 @@
+---
+title: "descriptive-analysis"
+format: pdf
+editor: visual
+---
+
+## Introduction
+
+This document presents the results from 4 different tools that screen papers for one or more registration IDs (protocol, trial registry, etc). Overall, 200 IDs found in 117 papers were analyzed.
+
+#### Main analyses: 
+
+1.  Types of ID detected
+
+2.  Where were the IDs located (abstract section, methods section, etc.)?
+
+3.  Were the papers research articles?
+
+4.  Did the tools agree? (i.e. they all found the ID).
+
+5.  Additional observations
+
+## 1) Types of ID detected
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+install.packages("readr")
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("here")
+
+```
+
+```{r message = FALSE, warning = FALSE}
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(here)
+
+#load dataset
+data <- read_csv(here("testing", "regset.csv"))
+
+#general overview
+table(data$id_type_group)
+```
+
+The three main groups of ID observed were trial registration numbers (trn), protocols and false positives.
+
+### TRNs
+
+```{r message = FALSE, warning = FALSE}
+
+trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr", "isrctn","ctri", "eudract", "actrn", "jrct", "kct", "ntr", "pactr"))
+
+table(trn$id_type)
+```
+
+The majority of the trial registry numbers were from the ctgov registry, followed umin, dkrs and irct.
+
+![](images/Picture 3.png)
+
+**note on the names**:
+
+-   ctgov - US Clinical Trials Register
+
+-   umin - University Hospital Medical Information Network Register
+
+-   drks - German Clinical Trials Register
+
+-   irct - Iranian Registry of Cinical Trials
+
+-   chictr - Chinese Clinical Trial Registry
+
+-   isrctn - ISRCTN Registry
+
+-   ctri - Clinical Trials Registry-India
+
+-   eudract - EU Clinical Trials Register
+
+-   actrn - Australian New Zealand Clinical Trial Registry
+
+-   jrct - Japan Registry of Clinical Trials
+
+-   kct - Korean Clinical Trial Registry
+
+-   ntr - Dutch Trial Register
+
+-   pactr - Pan African Clinical Trials Registry
+
+### Protocols
+
+```{r message = FALSE, warning = FALSE}
+
+protocol <- subset(data, data$id_type %in% c("protocols_io"))
+
+table(protocol$id_type)
+```
+
+We only had two IDs that were included in links to specific protocols from protocols.io
+
+![](images/Picture 1.png)
+
+### False positives
+
+```{r message = FALSE, warning = FALSE}
+
+false_positive <- subset(data, data$id_type %in% c("catalogue_id", "datapoint", "drug_id", "funding_id", "medical_acronym", "medical_device"))
+
+table(false_positive$id_type)
+```
+
+The main types of false positives we encounter were IDs corresponding to specific fundings or grants.
+
+![](images/Picture 2.png)
+
+## 2) Where were the IDs located?
