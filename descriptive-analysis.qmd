@@ -20,7 +20,9 @@ Overall, 200 IDs found in 117 papers were analyzed.
 
 4.  When did the tools agree/disagree? (i.e. they all found the ID = agree).
 
-5.  Additional observations
+5.  Did the tools find an actual ID?
+
+6.  Additional observations
 
 ## 1) Types of ID detected
 
@@ -31,14 +33,13 @@ install.packages("dplyr")
 install.packages("ggplot2")
 install.packages("here")
 
-```
-
-```{r message = FALSE, warning = FALSE}
-
 library(readr)
 library(dplyr)
 library(ggplot2)
 library(here)
+```
+
+```{r message = FALSE, warning = FALSE}
 
 #load dataset
 data <- read_csv(here("testing", "regset.csv"))
@@ -155,9 +156,9 @@ It is important to note that 33 of the False cases came from the same paper, tha
 
 ## 4) When did the tools agree/disagree?
 
-### Did they find an actual ID?
+## 5) Did the tools find an actual ID?
 
-## 5) Additional observations
+## 6) Additional observations
 
 ### TRN from the study itself or as a reference to other studies
 
