@@ -6,7 +6,9 @@ editor: visual
 
 ## Introduction
 
-This document presents the results from 4 different tools that screen papers for one or more registration IDs (protocol, trial registry, etc). Overall, 200 IDs found in 117 papers were analyzed.
+This document presents the descriptive results from the analysis of 4 different tools (`sciscore`, `trialidentifier`, `ctregistries` and `nct`). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).
+
+Overall, 200 IDs found in 117 papers were analyzed.
 
 #### Main analyses:
 
@@ -152,6 +154,8 @@ Here we evaluated if the papers had the structure of a research article (abstrac
 It is important to note that 33 of the False cases came from the same paper, that reviewed studies and identified them using their ctgov trial registry number.
 
 ## 4) When did the tools agree/disagree?
+
+### Did they find an actual ID?
 
 ## 5) Additional observations
 
