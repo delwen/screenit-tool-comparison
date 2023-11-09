@@ -8,7 +8,7 @@ editor: visual
 
 This document presents the results from 4 different tools that screen papers for one or more registration IDs (protocol, trial registry, etc). Overall, 200 IDs found in 117 papers were analyzed.
 
-#### Main analyses: 
+#### Main analyses:
 
 1.  Types of ID detected
 
@@ -16,7 +16,7 @@ This document presents the results from 4 different tools that screen papers for
 
 3.  Were the papers research articles?
 
-4.  Did the tools agree? (i.e. they all found the ID).
+4.  When did the tools agree/disagree? (i.e. they all found the ID = agree).
 
 5.  Additional observations
 
@@ -56,9 +56,9 @@ trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr
 table(trn$id_type)
 ```
 
-The majority of the trial registry numbers were from the ctgov registry, followed umin, dkrs and irct.
+The majority of the trial registry numbers were from the ctgov registry, followed by umin, dkrs and irct.
 
-![](images/Picture 3.png)
+![](images/Picture%203.png){width="516"}
 
 **note on the names**:
 
@@ -99,7 +99,7 @@ table(protocol$id_type)
 
 We only had two IDs that were included in links to specific protocols from protocols.io
 
-![](images/Picture 1.png)
+![](images/Picture%201.png)
 
 ### False positives
 
@@ -112,6 +112,57 @@ table(false_positive$id_type)
 
 The main types of false positives we encounter were IDs corresponding to specific fundings or grants.
 
-![](images/Picture 2.png)
+![](images/Picture%202.png)
 
 ## 2) Where were the IDs located?
+
+```{r message = FALSE, warning = FALSE}
+#id in abstract
+table(data$id_in_abstract)
+```
+
+```{r message = FALSE, warning = FALSE}
+#id in methods
+table(data$id_in_methods)
+```
+
+```{r message = FALSE, warning = FALSE}
+#id in other location
+table(data$id_in_other_location)
+```
+
+![](images/4.png)
+
+**What were the other locations?** - introduction, discussion, ethic statement, acknowledgements, etc.
+
+```{r message = FALSE, warning = FALSE}
+table(data$other_location)
+```
+
+**Note**: the IDs analyzed could be in one or more locations, that is why there are more cases (250) out of a total of 200 IDs.
+
+## 3) Were the papers research articles?
+
+```{r message = FALSE, warning = FALSE}
+table(data$paper_is_research_article)
+```
+
+Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.). Overall, the majority of the papers were research articles.
+
+It is important to note that 33 of the False cases came from the same paper, that reviewed studies and identified them using their ctgov trial registry number.
+
+## 4) When did the tools agree/disagree?
+
+## 5) Additional observations
+
+### TRN from the study itself or as a reference to other studies
+
+Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 of the ctgov trn's were used as references. In this case, the tools correctly identify a trial ID number, but is this what we want to find? or are we interested in finding if authors put in their papers their own registry ID?
+
+### Funding IDs from China
+
+Sometimes they were detected as IDs, but not in all cases. What were the differences?
+
+### TRN with missing digits
+
+There were two cases of ctgov IDs reported with one digit less, but the tools were still able to identify them.
