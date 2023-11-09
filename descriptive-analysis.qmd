@@ -1,6 +1,6 @@
 ---
 title: "descriptive-analysis"
-format: pdf
+format: html
 editor: visual
 ---
 
