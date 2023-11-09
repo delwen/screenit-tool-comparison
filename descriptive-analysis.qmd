@@ -28,11 +28,6 @@ Overall, 200 IDs found in 117 papers were analyzed.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
-install.packages("readr")
-install.packages("dplyr")
-install.packages("ggplot2")
-install.packages("here")
-
 library(readr)
 library(dplyr)
 library(ggplot2)
@@ -54,7 +49,9 @@ The three main groups of ID observed were `trial registration numbers (trn)`, `p
 
 ```{r message = FALSE, warning = FALSE}
 
-trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr", "isrctn","ctri", "eudract", "actrn", "jrct", "kct", "ntr", "pactr"))
+trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr", 
+                                        "isrctn","ctri", "eudract", "actrn", "jrct", 
+                                        "kct", "ntr", "pactr"))
 
 table(trn$id_type)
 ```
@@ -108,7 +105,9 @@ We only had two IDs that were included in links to specific protocols from proto
 
 ```{r message = FALSE, warning = FALSE}
 
-false_positive <- subset(data, data$id_type %in% c("catalogue_id", "datapoint", "drug_id", "funding_id", "medical_acronym", "medical_device"))
+false_positive <- subset(data, data$id_type %in% c("catalogue_id", "datapoint", 
+                                                   "drug_id", "funding_id", "medical_acronym",
+                                                   "medical_device"))
 
 table(false_positive$id_type)
 ```
