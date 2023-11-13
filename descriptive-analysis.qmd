@@ -162,7 +162,7 @@ table(data$tools_agree)
 
 Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they tended to only agree when the ID was a trn:
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 table(data$tools_agree, data$id_type_group)
 ```
 
@@ -173,18 +173,20 @@ table(data$tools_agree, data$id_type_group)
 sciscore <- subset(data, data$sciscore_hit %in% c("TRUE"))
 
 table(sciscore$id_type_group)
+table(sciscore$id_type)
 ```
 
-`sciscore` detected 55 trial registry number IDs and 2 protocol IDs.
+`sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.
 
 ```{r message = FALSE, warning = FALSE}
 #subset of trialidentifier_hit = TRUE
 trialidentifier <- subset(data, data$trialidentifier_hit %in% c("TRUE"))
 
 table(trialidentifier$id_type_group)
+table(trialidentifier$id_type)
 ```
 
-`trialidentifier` identified 139 trial registry number IDs
+`trialidentifier` identified 139 trial registry number IDs, from both ctgov and isrctn.
 
 ```{r message = FALSE, warning = FALSE}
 #subset of ctregistries_hit = TRUE
@@ -196,15 +198,25 @@ table(ctregistries$id_type_group)
 Out of the 4 tools, `ctregistries` was the one who selected the 29 cases of false positives. However, it also detected 166 trial registry number IDs.
 
 ```{r message = FALSE, warning = FALSE}
+
+ctregistries_trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr", 
+                                        "isrctn","ctri", "eudract", "actrn", "jrct", 
+                                        "kct", "ntr", "pactr"))
+
+table(ctregistries_trn$id_type)
+```
+
+Compared to the results in section (1), it seems `ctregistries` is also sensible to different types of registries that are not picked up by the other three tools.
+
+```{r message = FALSE, warning = FALSE}
 #subset of nct_hit = TRUE
 nct <- subset(data, data$nct_hit %in% c("TRUE"))
 
 table(nct$id_type_group)
+table(nct$id_type)
 ```
 
-`nct` identified 137 trial registry number IDs.
-
-Overall, it is important to further analyze if the trn IDs identified by `ctregistries` were or not picked up by the other three tools. Even if it picked up false positives, it could also mean that it is less specific and therefore picks other trial registry numbers that are not detected by the other tools.
+`nct` identified 137 trial registry number IDs, all from ctgov.
 
 ## 6) Additional observations
 
