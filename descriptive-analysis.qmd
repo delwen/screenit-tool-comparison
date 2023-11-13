@@ -168,6 +168,8 @@ table(data$tools_agree, data$id_type_group)
 
 ## 5) Did the tools find an actual ID?
 
+### Tool 1: sciscore
+
 ```{r message = FALSE, warning = FALSE}
 #subset of sciscore_hit = TRUE
 sciscore <- subset(data, data$sciscore_hit %in% c("TRUE"))
@@ -178,6 +180,8 @@ table(sciscore$id_type)
 
 `sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.
 
+### Tool 2: trialidentifier
+
 ```{r message = FALSE, warning = FALSE}
 #subset of trialidentifier_hit = TRUE
 trialidentifier <- subset(data, data$trialidentifier_hit %in% c("TRUE"))
@@ -187,6 +191,8 @@ table(trialidentifier$id_type)
 ```
 
 `trialidentifier` identified 139 trial registry number IDs, from both ctgov and isrctn.
+
+### Tool 3: ctregistries
 
 ```{r message = FALSE, warning = FALSE}
 #subset of ctregistries_hit = TRUE
@@ -207,6 +213,8 @@ table(ctregistries_trn$id_type)
 ```
 
 Compared to the results in section (1), it seems `ctregistries` is also sensible to different types of registries that are not picked up by the other three tools.
+
+### Tool 4: nct
 
 ```{r message = FALSE, warning = FALSE}
 #subset of nct_hit = TRUE
