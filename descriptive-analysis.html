@@ -284,6 +284,8 @@ FALSE  TRUE
 </section>
 <section id="did-the-tools-find-an-actual-id" class="level2">
 <h2 class="anchored" data-anchor-id="did-the-tools-find-an-actual-id">5) Did the tools find an actual ID?</h2>
+<section id="tool-1-sciscore" class="level3">
+<h3 class="anchored" data-anchor-id="tool-1-sciscore">Tool 1: sciscore</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of sciscore_hit = TRUE</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>sciscore <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>sciscore_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
@@ -294,25 +296,43 @@ FALSE  TRUE
 protocol      trn 
        2       55 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+       ctgov      eudract protocols_io 
+          54            1            2 </code></pre>
 </div>
-<p><code>sciscore</code> detected 55 trial registry number IDs and 2 protocol IDs.</p>
+</div>
+<p><code>sciscore</code> detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.</p>
+</section>
+<section id="tool-2-trialidentifier" class="level3">
+<h3 class="anchored" data-anchor-id="tool-2-trialidentifier">Tool 2: trialidentifier</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 trn 
 139 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ ctgov isrctn 
+   136      3 </code></pre>
 </div>
-<p><code>trialidentifier</code> identified 139 trial registry number IDs</p>
+</div>
+<p><code>trialidentifier</code> identified 139 trial registry number IDs, from both ctgov and isrctn.</p>
+</section>
+<section id="tool-3-ctregistries" class="level3">
+<h3 class="anchored" data-anchor-id="tool-3-ctregistries">Tool 3: ctregistries</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of ctregistries_hit = TRUE</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>ctregistries_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ctregistries<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of ctregistries_hit = TRUE</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>ctregistries_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ctregistries<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 false_positive            trn 
@@ -321,18 +341,42 @@ false_positive            trn
 </div>
 <p>Out of the 4 tools, <code>ctregistries</code> was the one who selected the 29 cases of false positives. However, it also detected 166 trial registry number IDs.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of nct_hit = TRUE</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>nct <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>nct_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ctregistries_trn <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>id_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctgov"</span>, <span class="st">"umin"</span>, <span class="st">"drks"</span>, <span class="st">"irct"</span>, <span class="st">"chictr"</span>, </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"isrctn"</span>,<span class="st">"ctri"</span>, <span class="st">"eudract"</span>, <span class="st">"actrn"</span>, <span class="st">"jrct"</span>, </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"kct"</span>, <span class="st">"ntr"</span>, <span class="st">"pactr"</span>))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ctregistries_trn<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  actrn  chictr   ctgov    ctri    drks eudract    irct  isrctn    jrct     kct 
+      1       3     137       2       5       2       5       3       1       1 
+    ntr   pactr    umin 
+      1       1       7 </code></pre>
+</div>
+</div>
+<p>Compared to the results in section (1), it seems <code>ctregistries</code> is also sensible to different types of registries that are not picked up by the other three tools.</p>
+</section>
+<section id="tool-4-nct" class="level3">
+<h3 class="anchored" data-anchor-id="tool-4-nct">Tool 4: nct</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of nct_hit = TRUE</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>nct <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>nct_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 trn 
 137 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ctgov 
+  137 </code></pre>
 </div>
-<p><code>nct</code> identified 137 trial registry number IDs.</p>
-<p>Overall, it is important to further analyze if the trn IDs identified by <code>ctregistries</code> were or not picked up by the other three tools. Even if it picked up false positives, it could also mean that it is less specific and therefore picks other trial registry numbers that are not detected by the other tools.</p>
+</div>
+<p><code>nct</code> identified 137 trial registry number IDs, all from ctgov.</p>
+</section>
 </section>
 <section id="additional-observations" class="level2">
 <h2 class="anchored" data-anchor-id="additional-observations">6) Additional observations</h2>

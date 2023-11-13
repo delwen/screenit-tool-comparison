@@ -135,7 +135,7 @@ table(data$id_in_other_location)
 
 ![](images/4.png)
 
-**What were the other locations?** - introduction, discussion, ethic statement, acknowledgements, etc.
+**What were the other locations?** - discussion (53 cases), introduction (24 cases), acknowledgements (16 cases ), results(11 cases), etc.
 
 ```{r message = FALSE, warning = FALSE}
 table(data$other_location)
@@ -160,7 +160,7 @@ It is important to note that 33 of the False cases came from the same paper, whi
 table(data$tools_agree)
 ```
 
-Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they tended to only agree when the ID was a trn:
+Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they only agreed when the ID was a trn:
 
 ```{r message = FALSE, warning = FALSE}
 table(data$tools_agree, data$id_type_group)
