@@ -61,3 +61,10 @@ data_man_check <- data_man_check |>
     )
 
 write_csv(data_man_check, here("data", "reg_set_man_check.csv"))
+
+# Update: initially missed some Identifier-PMCID combinations, so we re-extracted with all preserved
+# This led to 3 additional rows
+
+# data_new <- read_csv(here("data", "all_data_by_id_updated_again.csv"))
+# data_new <- distinct(data_new, .keep_all = TRUE)
+# diff <- anti_join(data_new, data_man_check, by = c("Identifier", "PMCID"))
