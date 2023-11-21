@@ -134,6 +134,7 @@ custom_palette <- colorRampPalette(c("#4EA8DE", "#48BFE3", "#56CFE1"))
 #create barplot
 barplot(count_true, names.arg = colnames(location), 
         col = custom_palette(length(count_true)),
+        main = "Location of IDs",
         ylab = "Count", ylim = c(0, max(count_true) + 15))
 
 # Calculate the midpoints of the bars
