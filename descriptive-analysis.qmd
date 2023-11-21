@@ -121,29 +121,37 @@ The main types of false positives we encounter were IDs corresponding to specifi
 ### General overview
 
 ```{r message = FALSE, warning = FALSE}
-#id in abstract
-table(data$id_in_abstract)
+
+# Select only the three columns of interest
+location <- data[, c("id_in_abstract", "id_in_methods", "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location)
+
+#select custom colors
+custom_palette <- colorRampPalette(c("#4EA8DE", "#48BFE3", "#56CFE1"))
+
+#create barplot
+barplot(count_true, names.arg = colnames(location), 
+        col = custom_palette(length(count_true)),
+        ylab = "Count", ylim = c(0, max(count_true) + 15))
+
+# Calculate the midpoints of the bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+# Add total count labels on each column (centered)
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
-```{r message = FALSE, warning = FALSE}
-#id in methods
-table(data$id_in_methods)
-```
-
-```{r message = FALSE, warning = FALSE}
-#id in other location
-table(data$id_in_other_location)
-```
-
-![](images/4.png)
-
-**What were the other locations?** - discussion (53 cases), introduction (24 cases), acknowledgements (16 cases ), results(11 cases), etc.
+**What were the other locations?** - discussion (53 cases), introduction (24 cases), acknowledgements (16 cases ), results (11 cases), etc.
 
 ```{r message = FALSE, warning = FALSE}
 table(data$other_location)
 ```
 
-**Note**: the IDs analyzed could be in one or more locations, that is why there are more cases (250) out of a total of 200 IDs.
+### NOTE:
+
+The IDs analyzed could be in **one or more locations**, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyze the location of the ID by tool.
 
 ## 3) Were the papers research articles?
 
@@ -183,9 +191,25 @@ table(sciscore$id_type)
 `sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.
 
 ```{r message = FALSE, warning = FALSE}
-table(sciscore$id_in_abstract)
-table(sciscore$id_in_methods)
-table(sciscore$id_in_other_location)
+
+# Select only the three columns of interest
+location_analysis1 <- sciscore[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis1)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis1), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by sciscore", ylab = "Count",
+        ylim = c(0, max(count_true) + 5))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
 Additionally, `sciscore` detected the IDs in more than 2 locations: abstract (24 cases), methods (53) and other location (9).
@@ -204,9 +228,24 @@ table(trialidentifier$id_type)
 
 ```{r message = FALSE, warning = FALSE}
 
-table(trialidentifier$id_in_abstract)
-table(trialidentifier$id_in_methods)
-table(trialidentifier$id_in_other_location)
+# Select only the three columns of interest
+location_analysis2 <- trialidentifier[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis2)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis2), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by trialidentifier", ylab = "Count",
+        ylim = c(0, max(count_true) + 10))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
 Additionally, `trialidentifier` detected the IDs in more than 2 locations: abstract (35 cases), methods (63) and other location (81).
@@ -224,9 +263,10 @@ Out of the 4 tools, `ctregistries` was the one who selected the 29 cases of fals
 
 ```{r message = FALSE, warning = FALSE}
 
-ctregistries_trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr", 
-                                        "isrctn","ctri", "eudract", "actrn", "jrct", 
-                                        "kct", "ntr", "pactr"))
+ctregistries_trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct",
+                                                     "chictr", "isrctn","ctri", 
+                                                     "eudract", "actrn", "jrct", 
+                                                     "kct", "ntr", "pactr"))
 
 table(ctregistries_trn$id_type)
 ```
@@ -235,9 +275,24 @@ Compared to the results in section (1), it seems `ctregistries` is also sensible
 
 ```{r message = FALSE, warning = FALSE}
 
-table(ctregistries$id_in_abstract)
-table(ctregistries$id_in_methods)
-table(ctregistries$id_in_other_location)
+# Select only the three columns of interest
+location_analysis3 <- ctregistries[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis3)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis3), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by ctregistries", ylab = "Count",
+        ylim = c(0, max(count_true) + 10))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
 Finally, `ctregistries` detected the IDs in more than 2 locations: abstract (43 cases), methods (89), other location (113).
@@ -256,9 +311,24 @@ table(nct$id_type)
 
 ```{r message = FALSE, warning = FALSE}
 
-table(nct$id_in_abstract)
-table(nct$id_in_methods)
-table(nct$id_in_other_location)
+# Select only the three columns of interest
+location_analysis4 <- nct[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis4)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis4), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by nct", ylab = "Count",
+        ylim = c(0, max(count_true) + 10))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
 Additionally, `nct` detected the IDs in more than 3 locations: abstract (34 cases), methods (61), other location (81).
@@ -271,13 +341,13 @@ Some papers analyzed use specifically the ctgov trial registry number as a way t
 
 ### Funding IDs from China
 
-Sometimes they were detected as IDs, but not in all cases. What were the differences?
+Sometimes they were detected as IDs, but not in all cases. If it is a point of interest, one could analyze them and find if there are differences in the way the number was mentioned.
 
 ### TRN with missing digits
 
 There were two cases of ctgov IDs reported with one digit less, but the tools were still able to identify them.
 
-### Negative-control check: results
+### Negative-control check summary
 
 Overall, out of the 50 papers reviewed, there where only three papers flagged for a possible registration number:
 
