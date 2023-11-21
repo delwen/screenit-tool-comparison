@@ -118,6 +118,8 @@ The main types of false positives we encounter were IDs corresponding to specifi
 
 ## 2) Where were the IDs located?
 
+### General overview
+
 ```{r message = FALSE, warning = FALSE}
 #id in abstract
 table(data$id_in_abstract)
@@ -180,6 +182,14 @@ table(sciscore$id_type)
 
 `sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.
 
+```{r message = FALSE, warning = FALSE}
+table(sciscore$id_in_abstract)
+table(sciscore$id_in_methods)
+table(sciscore$id_in_other_location)
+```
+
+Additionally, `sciscore` detected the IDs in more than 2 locations: abstract (24 cases), methods (53) and other location (9).
+
 ### Tool 2: trialidentifier
 
 ```{r message = FALSE, warning = FALSE}
@@ -191,6 +201,15 @@ table(trialidentifier$id_type)
 ```
 
 `trialidentifier` identified 139 trial registry number IDs, from both ctgov and isrctn.
+
+```{r message = FALSE, warning = FALSE}
+
+table(trialidentifier$id_in_abstract)
+table(trialidentifier$id_in_methods)
+table(trialidentifier$id_in_other_location)
+```
+
+Additionally, `trialidentifier` detected the IDs in more than 2 locations: abstract (35 cases), methods (63) and other location (81).
 
 ### Tool 3: ctregistries
 
@@ -214,6 +233,15 @@ table(ctregistries_trn$id_type)
 
 Compared to the results in section (1), it seems `ctregistries` is also sensible to different types of registries that are not picked up by the other three tools.
 
+```{r message = FALSE, warning = FALSE}
+
+table(ctregistries$id_in_abstract)
+table(ctregistries$id_in_methods)
+table(ctregistries$id_in_other_location)
+```
+
+Finally, `ctregistries` detected the IDs in more than 2 locations: abstract (43 cases), methods (89), other location (113).
+
 ### Tool 4: nct
 
 ```{r message = FALSE, warning = FALSE}
@@ -225,6 +253,15 @@ table(nct$id_type)
 ```
 
 `nct` identified 137 trial registry number IDs, all from ctgov.
+
+```{r message = FALSE, warning = FALSE}
+
+table(nct$id_in_abstract)
+table(nct$id_in_methods)
+table(nct$id_in_other_location)
+```
+
+Additionally, `nct` detected the IDs in more than 3 locations: abstract (34 cases), methods (61), other location (81).
 
 ## 6) Additional observations
 
@@ -239,3 +276,17 @@ Sometimes they were detected as IDs, but not in all cases. What were the differe
 ### TRN with missing digits
 
 There were two cases of ctgov IDs reported with one digit less, but the tools were still able to identify them.
+
+### Negative-control check: results
+
+Overall, out of the 50 papers reviewed, there where only three papers flagged for a possible registration number:
+
+1.  Number ID found for the Institutional Animal Care and Use Committee (IACUC) - this could be a protocol ID.
+
+2.  Number ID from www.researchregistry.com.
+
+3.  Number ID for Prospero Registry.
+
+Additionally, there were some funding IDs observed in 6 cases that were detected by the tools in other papers (and labeled as false_positives), but not on these controls.
+
+There were also some Ethical ID numbers present in 7 cases. These types of ID were not detected by the tools, but one could question if those are considered as a form of registration or not.
