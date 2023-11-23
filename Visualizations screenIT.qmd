@@ -1,0 +1,260 @@
+---
+title: "Visualizations for screenIT Report"
+format: html
+editor: visual
+---
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(here)
+library(wordcloud)
+library(RColorBrewer)
+
+data <- read_csv(here("testing", "regset.csv"))
+```
+
+## Wordclouds
+
+### ID group
+
+```{r message = FALSE, warning = FALSE}
+
+# create a subset with id_type and its frequency
+id_group <- as.data.frame(table(data$id_type_group))
+
+wordcloud(words = id_group$Var1, 
+          freq = id_group$Freq,
+          min.freq = 0,
+          max.words=200,
+          random.order = FALSE,
+          rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+In this case, there are only three main groups, therefore a wordcloud does not provide more information than, for example, a table or barplot. We can create wordclouds for the ID types of the categories trn and false_positive.
+
+### ID type - TRN
+
+```{r message = FALSE, warning = FALSE}
+
+trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr", 
+                                        "isrctn","ctri", "eudract", "actrn", "jrct", 
+                                        "kct", "ntr", "pactr"))
+
+trn_id_type <- as.data.frame(table(trn$id_type))
+
+wordcloud(words = trn_id_type$Var1, 
+          freq = trn_id_type$Freq,
+          min.freq = 0,
+          max.words=100,
+          random.order=FALSE,
+          rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+ctgov appears in this wordcloud as the main type of trial registry number presented on the papers.
+
+How are the other TRN ID types distributed if we exclude ctgov?
+
+```{r message = FALSE, warning = FALSE}
+
+other_trn <- subset(data, data$id_type %in% c( "umin", "drks", "irct", "chictr", 
+                                        "isrctn","ctri", "eudract", "actrn", "jrct", 
+                                        "kct", "ntr", "pactr"))
+
+other_id_type <- as.data.frame(table(other_trn$id_type))
+
+wordcloud(words = other_id_type$Var1, 
+          freq = other_id_type$Freq,
+          min.freq = 0,
+          max.words=100,
+          random.order=FALSE,
+          rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+
+```
+
+Here the wordcloud becomes more informative, although the N from each registry besides ctgov goes from 1 to 7.
+
+### ID type - false_positive
+
+```{r message = FALSE, warning = FALSE}
+
+false_positive <- subset(data, data$id_type %in% c("catalogue_id", "datapoint", 
+                                                   "drug_id", "funding_id", 
+                                                   "medical_acronym",
+                                                   "medical_device"))
+
+
+falsepositive_id_type <- as.data.frame(table(false_positive$id_type))
+
+wordcloud(words = falsepositive_id_type$Var1, 
+          freq = falsepositive_id_type$Freq,
+          min.freq = 0,
+          max.words=100,
+          random.order=FALSE,
+          rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+### Other locations
+
+```{r message = FALSE, warning = FALSE}
+
+# separating locations where there are more than 1 options
+locations <- unlist(strsplit(as.character(data$other_location), ", "))
+
+# Create a data frame with the table of frequencies
+other_location <- as.data.frame(table(locations))
+
+wordcloud(words = other_location$locations, 
+          freq = other_location$Freq,
+          min.freq = 0,
+          max.words = 200,
+          random.order = FALSE,
+          rot.per = 0,
+          colors = brewer.pal(8, "Dark2"))
+```
+
+## Barplots
+
+### General location
+
+```{r message = FALSE, warning = FALSE}
+
+# Select only the three columns of interest
+location <- data[, c("id_in_abstract", "id_in_methods", 
+                     "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location)
+
+#call plot.new()
+plot.new()
+
+#select custom colors
+custom_palette <- colorRampPalette(c("#4EA8DE", "#48BFE3", "#56CFE1"))
+
+#create barplot
+barplot(count_true, 
+        names.arg = colnames(location), 
+        col = custom_palette(length(count_true)), 
+        main = "General location of IDs", 
+        ylab = "Count",
+        ylim = c(0, max(count_true) + 15))
+
+# Calculate the midpoints of the bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+# Add total count labels on each column (centered)
+text(bar_midpoints, count_true, 
+     labels = count_true, 
+     pos = 3, 
+     col = "black", 
+     cex = 0.8)
+```
+
+### ID location by each tool
+
+```{r message = FALSE, warning = FALSE}
+
+#subset of sciscore_hit = TRUE
+sciscore <- subset(data, data$sciscore_hit %in% c("TRUE"))
+
+# Select only the three columns of interest
+location_analysis1 <- sciscore[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis1)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis1), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by sciscore", ylab = "Count",
+        ylim = c(0, max(count_true) + 5))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
+```
+
+```{r message = FALSE, warning = FALSE}
+
+#subset of trialidentifier_hit = TRUE
+trialidentifier <- subset(data, data$trialidentifier_hit %in% c("TRUE"))
+
+# Select only the three columns of interest
+location_analysis2 <- trialidentifier[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis2)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis2), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by trialidentifier", ylab = "Count",
+        ylim = c(0, max(count_true) + 10))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
+```
+
+```{r message = FALSE, warning = FALSE}
+
+#subset of ctregistries_hit = TRUE
+ctregistries <- subset(data, data$ctregistries_hit %in% c("TRUE"))
+
+# Select only the three columns of interest
+location_analysis3 <- ctregistries[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis3)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis3), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by ctregistries", ylab = "Count",
+        ylim = c(0, max(count_true) + 10))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
+```
+
+```{r message = FALSE, warning = FALSE}
+
+#subset of nct_hit = TRUE
+nct <- subset(data, data$nct_hit %in% c("TRUE"))
+
+# Select only the three columns of interest
+location_analysis4 <- nct[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis4)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis4), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of IDs detected by nct", ylab = "Count",
+        ylim = c(0, max(count_true) + 10))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
+```
