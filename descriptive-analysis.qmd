@@ -168,7 +168,7 @@ wordcloud(words = other_location$locations,
 
 ### NOTE:
 
-The IDs analyzed could be in **one or more locations**, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyze the location of the ID by tool.
+The IDs analyzed could be in **one or more locations**, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool.
 
 ## 3) Were the papers research articles?
 
