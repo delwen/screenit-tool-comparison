@@ -97,7 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>This document presents the descriptive results from the analysis of 4 different tools (<code>sciscore</code>, <code>trialidentifier</code>, <code>ctregistries</code> and <code>nct</code>). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).</p>
-<p>Overall, 200 IDs found in 117 papers were analyzed.</p>
+<p>This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed.</p>
 <section id="main-analyses" class="level4">
 <h4 class="anchored" data-anchor-id="main-analyses">Main analyses:</h4>
 <ol type="1">
@@ -214,7 +214,7 @@ protocols_io
 </section>
 <section id="note" class="level3">
 <h3 class="anchored" data-anchor-id="note">NOTE:</h3>
-<p>The IDs analyzed could be in <strong>one or more locations</strong>, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyze the location of the ID by tool.</p>
+<p>The IDs analyzed could be in <strong>one or more locations</strong>, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool.</p>
 </section>
 </section>
 <section id="were-the-papers-research-articles" class="level2">
@@ -227,13 +227,15 @@ FALSE  TRUE
    41   159 </code></pre>
 </div>
 </div>
-<p>Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.). Overall, the majority of the papers were research articles.</p>
+<p>Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).</p>
+<p>Out of the 200 IDs reviewed, 159 came from research papers.</p>
 <p>It is important to note that 33 of the False cases came from the same paper, which reviewed different studies and identified them using their ctgov trial registry number.</p>
+<pre><code></code></pre>
 </section>
 <section id="did-the-tools-agreedisagree" class="level2">
 <h2 class="anchored" data-anchor-id="did-the-tools-agreedisagree">4) Did the tools agree/disagree?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  no yes 
@@ -242,7 +244,7 @@ FALSE  TRUE
 </div>
 <p>Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they only agreed when the ID was a trn:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree, data<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree, data<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
       false_positive protocol trn
@@ -256,16 +258,16 @@ FALSE  TRUE
 <section id="tool-1-sciscore" class="level3">
 <h3 class="anchored" data-anchor-id="tool-1-sciscore">Tool 1: sciscore</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of sciscore_hit = TRUE</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sciscore <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>sciscore_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of sciscore_hit = TRUE</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sciscore <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>sciscore_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 protocol      trn 
        2       55 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
        ctgov      eudract protocols_io 
@@ -283,16 +285,16 @@ protocol      trn
 <section id="tool-2-trialidentifier" class="level3">
 <h3 class="anchored" data-anchor-id="tool-2-trialidentifier">Tool 2: trialidentifier</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 trn 
 139 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  ctgov isrctn 
@@ -310,10 +312,10 @@ trn
 <section id="tool-3-ctregistries" class="level3">
 <h3 class="anchored" data-anchor-id="tool-3-ctregistries">Tool 3: ctregistries</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of ctregistries_hit = TRUE</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>ctregistries_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ctregistries<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of ctregistries_hit = TRUE</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>ctregistries_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ctregistries<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 false_positive            trn 
@@ -331,16 +333,16 @@ false_positive            trn
 <section id="tool-4-nct" class="level3">
 <h3 class="anchored" data-anchor-id="tool-4-nct">Tool 4: nct</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of nct_hit = TRUE</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>nct <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>nct_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of nct_hit = TRUE</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>nct <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>nct_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 trn 
 137 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ctgov 
@@ -360,11 +362,13 @@ ctgov
 <h2 class="anchored" data-anchor-id="additional-observations">6) Additional observations</h2>
 <section id="trn-from-the-study-itself-or-as-a-reference-to-other-studies" class="level3">
 <h3 class="anchored" data-anchor-id="trn-from-the-study-itself-or-as-a-reference-to-other-studies">TRN from the study itself or as a reference to other studies</h3>
-<p>Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 of the ctgov trn’s were used as references. In this case, the tools correctly identify a trial ID number, but is this what we want to find? or are we interested in finding if authors put in their papers their own registry ID?</p>
+<p>Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 out of 137 ctgov trn’s were used as references in this sample.</p>
 </section>
 <section id="funding-ids-from-china" class="level3">
 <h3 class="anchored" data-anchor-id="funding-ids-from-china">Funding IDs from China</h3>
-<p>Sometimes they were detected as IDs, but not in all cases. If it is a point of interest, one could analyze them and find if there are differences in the way the number was mentioned.</p>
+<p>Sometimes they were detected as IDs, but not in all cases. For example, funding IDs detected by the tools were 12 digits long:</p>
+<p><img src="images/Screenshot%202023-12-04%20at%2011.21.58.png" class="img-fluid" width="350"></p>
+<p>Funding IDs that were present in the negative control check, and therefore not detected by the tools, were slightly shorter (for example: 92035302), or longer (for example: 2016YFD0100800).</p>
 </section>
 <section id="trn-with-missing-digits" class="level3">
 <h3 class="anchored" data-anchor-id="trn-with-missing-digits">TRN with missing digits</h3>
@@ -374,12 +378,12 @@ ctgov
 <h3 class="anchored" data-anchor-id="negative-control-check-summary">Negative-control check summary</h3>
 <p>Overall, out of the 50 papers reviewed, there where only three papers flagged for a possible registration number:</p>
 <ol type="1">
-<li><p>Number ID found for the Institutional Animal Care and Use Committee (IACUC) - this could be a protocol ID.</p></li>
-<li><p>Number ID from www.researchregistry.com.</p></li>
-<li><p>Number ID for Prospero Registry.</p></li>
+<li><p>Number ID found for the Institutional Animal Care and Use Committee (IACUC): <code>2014092403</code>. This could be a protocol ID.</p></li>
+<li><p>Number ID from www.researchregistry.com: <code>researchregistry7399</code></p></li>
+<li><p>Number ID for Prospero Registry: <code>CRD42021225699</code></p></li>
 </ol>
-<p>Additionally, there were some funding IDs observed in 6 cases that were detected by the tools in other papers (and labeled as false_positives), but not on these controls.</p>
-<p>There were also some Ethical ID numbers present in 7 cases. These types of ID were not detected by the tools, but one could question if those are considered as a form of registration or not.</p>
+<p>There were also Ethical ID numbers present in 7 cases. These types of ID were not detected by the tools, but one could question if those are considered as a form of registration or not.</p>
+<p>Finally, as mention before, there were 6 cases of funding IDs that were present on some of these papers. The IDs were different as the ones that were being detected in the main analysis as funding_ids.</p>
 </section>
 </section>
 
