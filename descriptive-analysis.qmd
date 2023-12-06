@@ -182,7 +182,7 @@ Out of the 200 IDs reviewed, 159 came from research papers.
 
 It is important to note that 33 of the False cases came from the same paper, which reviewed different studies and identified them using their ctgov trial registry number.
 
-```{}
+```         
 ```
 
 ## 4) Did the tools agree/disagree?
@@ -353,7 +353,7 @@ Some papers analyzed use specifically the ctgov trial registry number as a way t
 
 Sometimes they were detected as IDs, but not in all cases. For example, funding IDs detected by the tools were 12 digits long:
 
-![](images/Screenshot 2023-12-04 at 11.21.58.png){width="350"}
+![](images/Screenshot%202023-12-04%20at%2011.21.58.png){width="350"}
 
 Funding IDs that were present in the negative control check, and therefore not detected by the tools, were slightly shorter (for example: 92035302), or longer (for example: 2016YFD0100800).
 
