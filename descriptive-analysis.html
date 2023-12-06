@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Where were the IDs located (abstract section, methods section, etc.)?</p></li>
 <li><p>Were the papers research articles?</p></li>
 <li><p>Did the tools agree/disagree? (i.e.&nbsp;they all found the ID = agree).</p></li>
-<li><p>Did the tools find an actual ID?</p></li>
+<li><p>Description of each tool - type of ID and location</p></li>
 <li><p>Additional observations</p></li>
 </ol>
 </section>
@@ -205,7 +205,7 @@ protocols_io
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>What were the other locations?</strong> - discussion (53 cases), introduction (24 cases), acknowledgements (16 cases ), results (11 cases), etc.</p>
+<p><strong>What were the other locations?</strong> - discussion (53 cases), introduction (23 cases), acknowledgements (16 cases ), results (11 cases), etc.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
@@ -219,18 +219,31 @@ protocols_io
 </section>
 <section id="were-the-papers-research-articles" class="level2">
 <h2 class="anchored" data-anchor-id="were-the-papers-research-articles">3) Were the papers research articles?</h2>
+<p>Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>paper_is_research_article)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Group data by PMCID</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PMCID) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">paper_is_research_article =</span> <span class="fu">any</span>(paper_is_research_article))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a table with counts</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>count_table <span class="ot">&lt;-</span> result <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(paper_is_research_article)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/Screenshot%202023-12-06%20at%2010.14.29.png" class="img-fluid" width="251"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ID count</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>paper_is_research_article)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 FALSE  TRUE 
    41   159 </code></pre>
 </div>
 </div>
-<p>Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).</p>
-<p>Out of the 200 IDs reviewed, 159 came from research papers.</p>
-<p>It is important to note that 33 of the False cases came from the same paper, which reviewed different studies and identified them using their ctgov trial registry number.</p>
-<pre><code></code></pre>
+<p>Out of 117 papers reviewed, 112 were research articles, and were associated with 159 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.</p>
+<p>It is important to know that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID (<a href="https://pubmed.ncbi.nlm.nih.gov/35237397/">click here to see</a>)</p>
 </section>
 <section id="did-the-tools-agreedisagree" class="level2">
 <h2 class="anchored" data-anchor-id="did-the-tools-agreedisagree">4) Did the tools agree/disagree?</h2>
@@ -253,8 +266,8 @@ FALSE  TRUE
 </div>
 </div>
 </section>
-<section id="did-the-tools-find-an-actual-id" class="level2">
-<h2 class="anchored" data-anchor-id="did-the-tools-find-an-actual-id">5) Did the tools find an actual ID?</h2>
+<section id="description-of-each-tool---type-of-id-and-location" class="level2">
+<h2 class="anchored" data-anchor-id="description-of-each-tool---type-of-id-and-location">5) Description of each tool - type of ID and location</h2>
 <section id="tool-1-sciscore" class="level3">
 <h3 class="anchored" data-anchor-id="tool-1-sciscore">Tool 1: sciscore</h3>
 <div class="cell">
@@ -278,9 +291,11 @@ protocol      trn
 <p>Additionally, <code>sciscore</code> detected the IDs in more than 2 locations: abstract (24 cases), methods (53) and other location (9).</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Although the majority of IDs were in both methods and another location, there were 2 cases where the IDs were found in the introduction and not in the methods section: <code>NCT03349060</code> and <code>NCT03575871</code>.</p>
+<p>These two IDs were used as a reference in the same paper (<a href="https://pubmed.ncbi.nlm.nih.gov/34406366/">click here to see</a>).</p>
 </section>
 <section id="tool-2-trialidentifier" class="level3">
 <h3 class="anchored" data-anchor-id="tool-2-trialidentifier">Tool 2: trialidentifier</h3>
@@ -305,7 +320,7 @@ trn
 <p>Additionally, <code>trialidentifier</code> detected the IDs in more than 2 locations: abstract (35 cases), methods (63) and other location (81).</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -326,7 +341,7 @@ false_positive            trn
 <p>Finally, <code>ctregistries</code> detected the IDs in more than 2 locations: abstract (43 cases), methods (89), other location (113).</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -353,7 +368,7 @@ ctgov
 <p>Additionally, <code>nct</code> detected the IDs in more than 3 locations: abstract (34 cases), methods (61), other location (81).</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -362,17 +377,18 @@ ctgov
 <h2 class="anchored" data-anchor-id="additional-observations">6) Additional observations</h2>
 <section id="trn-from-the-study-itself-or-as-a-reference-to-other-studies" class="level3">
 <h3 class="anchored" data-anchor-id="trn-from-the-study-itself-or-as-a-reference-to-other-studies">TRN from the study itself or as a reference to other studies</h3>
-<p>Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 out of 137 ctgov trn’s were used as references in this sample.</p>
+<p>Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 of 137 ctgov trn’s were used as references in this sample.</p>
 </section>
 <section id="funding-ids" class="level3">
 <h3 class="anchored" data-anchor-id="funding-ids">Funding IDs</h3>
 <p>Sometimes they were detected as IDs, but not in all cases. For example, funding IDs detected by the tools were 12 digits long:</p>
 <p><img src="images/Screenshot%202023-12-04%20at%2011.21.58.png" class="img-fluid" width="350"></p>
-<p>Funding IDs that were present in the negative control check, and therefore not detected by the tools, were slightly shorter (for example: 92035302), or longer (for example: 2016YFD0100800).</p>
+<p>Funding IDs that were present in the negative control check, and therefore not detected by the tools, were slightly shorter (for example: 92035302) or longer (for example: 2016YFD0100800).</p>
 </section>
 <section id="trn-with-missing-digits" class="level3">
 <h3 class="anchored" data-anchor-id="trn-with-missing-digits">TRN with missing digits</h3>
-<p>There were two cases of ctgov IDs reported with one digit less, but the tools were still able to identify them.</p>
+<p>There were two cases of ctgov IDs reported with a missing digit, but the tools <code>trialidentifier</code> and <code>nct</code> were still able to identify them.</p>
+<p><img src="images/Screenshot%202023-12-06%20at%2009.28.29.png" class="img-fluid"></p>
 </section>
 <section id="negative-control-check-summary" class="level3">
 <h3 class="anchored" data-anchor-id="negative-control-check-summary">Negative-control check summary</h3>

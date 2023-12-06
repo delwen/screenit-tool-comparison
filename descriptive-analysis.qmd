@@ -20,7 +20,7 @@ This analysis was limited to papers (n = 117) where a hit was found by one or mo
 
 4.  Did the tools agree/disagree? (i.e. they all found the ID = agree).
 
-5.  Did the tools find an actual ID?
+5.  Description of each tool - type of ID and location
 
 6.  Additional observations
 
@@ -147,7 +147,7 @@ bar_midpoints <- barplot(count_true, plot = FALSE)
 text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
-**What were the other locations?** - discussion (53 cases), introduction (24 cases), acknowledgements (16 cases ), results (11 cases), etc.
+**What were the other locations?** - discussion (53 cases), introduction (23 cases), acknowledgements (16 cases ), results (11 cases), etc.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -172,18 +172,32 @@ The IDs analyzed could be in **one or more locations**, that is why there are mo
 
 ## 3) Were the papers research articles?
 
+Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).
+
 ```{r message = FALSE, warning = FALSE}
+library(tidyverse)
+
+#Group data by PMCID
+result <- data %>%
+  group_by(PMCID) %>%
+  summarise(paper_is_research_article = any(paper_is_research_article))
+
+#Create a table with counts
+count_table <- result %>%
+  count(paper_is_research_article)
+```
+
+![](images/Screenshot%202023-12-06%20at%2010.14.29.png){width="251"}
+
+```{r message = FALSE, warning = FALSE}
+  
+#ID count
 table(data$paper_is_research_article)
 ```
 
-Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).
+Out of 117 papers reviewed, 112 were research articles, and were associated with 159 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.
 
-Out of the 200 IDs reviewed, 159 came from research papers.
-
-It is important to note that 33 of the False cases came from the same paper, which reviewed different studies and identified them using their ctgov trial registry number.
-
-```         
-```
+It is important to know that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID ([click here to see](https://pubmed.ncbi.nlm.nih.gov/35237397/))
 
 ## 4) Did the tools agree/disagree?
 
@@ -198,7 +212,7 @@ Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they 
 table(data$tools_agree, data$id_type_group)
 ```
 
-## 5) Did the tools find an actual ID?
+## 5) Description of each tool - type of ID and location
 
 ### Tool 1: sciscore
 
@@ -235,6 +249,10 @@ bar_midpoints <- barplot(count_true, plot = FALSE)
 #add total count
 text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
+
+Although the majority of IDs were in both methods and another location, there were 2 cases where the IDs were found in the introduction and not in the methods section: `NCT03349060` and `NCT03575871`.
+
+These two IDs were used as a reference in the same paper ([click here to see](https://pubmed.ncbi.nlm.nih.gov/34406366/)).
 
 ### Tool 2: trialidentifier
 
@@ -347,7 +365,7 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 
 ### TRN from the study itself or as a reference to other studies
 
-Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 out of 137 ctgov trn's were used as references in this sample.
+Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 of 137 ctgov trn's were used as references in this sample.
 
 ### Funding IDs
 
@@ -355,11 +373,13 @@ Sometimes they were detected as IDs, but not in all cases. For example, funding 
 
 ![](images/Screenshot%202023-12-04%20at%2011.21.58.png){width="350"}
 
-Funding IDs that were present in the negative control check, and therefore not detected by the tools, were slightly shorter (for example: 92035302), or longer (for example: 2016YFD0100800).
+Funding IDs that were present in the negative control check, and therefore not detected by the tools, were slightly shorter (for example: 92035302) or longer (for example: 2016YFD0100800).
 
 ### TRN with missing digits
 
-There were two cases of ctgov IDs reported with one digit less, but the tools were still able to identify them.
+There were two cases of ctgov IDs reported with a missing digit, but the tools `trialidentifier` and `nct` were still able to identify them.
+
+![](images/Screenshot%202023-12-06%20at%2009.28.29.png)
 
 ### Negative-control check summary
 
