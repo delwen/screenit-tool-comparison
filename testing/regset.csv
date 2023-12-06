@@ -48,7 +48,7 @@ IRCT 20100512003915N20,PMC8305757,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm
 DRKS00011615,PMC8006617,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8006617/,trn,drks,FALSE,TRUE,FALSE,,TRUE,,,no
 ACTRN12618001762246,PMC8556752,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8556752/,trn,actrn,FALSE,TRUE,FALSE,,TRUE,,,no
 NCT03494699,PMC8719348,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8719348/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
-NCT02747251,PMC8411479,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8411479/,trn,ctgov,TRUE,FALSE,FALSE,,TRUE,,,yes
+NCT02747251,PMC8411479,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8411479/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
 201908350095,PMC8435827,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8435827/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
 https://dx.doi.org/10.17504/protocols.io.bagaibse,PMC8379522,TRUE,FALSE,FALSE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8379522/,protocol,protocols_io,FALSE,TRUE,FALSE,,FALSE,Protocol paper,"correct, this is not a traditional research article but a protocol paper - add this in comments",no
 NCT02706873,PMC8516509,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8516509/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
@@ -164,7 +164,7 @@ NCT03406845,PMC8902179,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC89
 NCT01768585,PMC8024658,FALSE,TRUE,FALSE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
 2012–001989-15,PMC8024658,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,eudract,FALSE,TRUE,FALSE,,TRUE,,,no
 NCT 01768585,PMC8024658,FALSE,FALSE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
-NCT03328299,PMC8753994,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8753994/,trn,ctgov,TRUE,FALSE,TRUE,introduction,TRUE,,,yes
+NCT03328299,PMC8753994,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8753994/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
 NCT02780167,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,"there was another trn on the paper, but it seems it was not detected on this case (NCT03575871)",also NCT03349060 was not found - this made me aware of a bug!,yes
 NCT03349060,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,NEW DATA TO EXTRACT! - Ready,yes
 NCT03575871,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,TRUE,,TRUE,,NEW DATA TO EXTRACT! - Ready,yes
