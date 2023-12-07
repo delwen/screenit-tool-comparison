@@ -226,7 +226,7 @@ table(sciscore$id_type)
 
 `sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.
 
-Additionally, `sciscore` detected the IDs in more than 2 locations: abstract (24 cases), methods (53) and other location (9).
+Additionally, `sciscore` detected the IDs in more than 2 locations: abstract (24 cases), methods (55) and other location (9).
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -365,7 +365,7 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 
 ### TRN from the study itself or as a reference to other studies
 
-Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. Around 71 of 137 ctgov trn's were used as references in this sample.
+Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. In this analysis, 71 of 137 ctgov trn's were used as reference.
 
 ### Funding IDs
 
