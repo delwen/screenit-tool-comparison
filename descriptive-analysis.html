@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>descriptive-analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="descriptive-analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="descriptive-analysis_files/libs/quarto-html/quarto.js"></script>
+<script src="descriptive-analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="descriptive-analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="descriptive-analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="descriptive-analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="descriptive-analysis_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="descriptive-analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="descriptive-analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="descriptive-analysis_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">descriptive-analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This document presents the descriptive results from the analysis of 4 different tools (<code>sciscore</code>, <code>trialidentifier</code>, <code>ctregistries</code> and <code>nct</code>). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).</p>
+<p>This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed.</p>
+<section id="main-analyses" class="level4">
+<h4 class="anchored" data-anchor-id="main-analyses">Main analyses:</h4>
+<ol type="1">
+<li><p>Types of ID detected</p></li>
+<li><p>Where were the IDs located (abstract section, methods section, etc.)?</p></li>
+<li><p>Were the papers research articles?</p></li>
+<li><p>Did the tools agree/disagree? (i.e.&nbsp;they all found the ID = agree).</p></li>
+<li><p>Description of each tool - type of ID and location</p></li>
+<li><p>Additional observations</p></li>
+</ol>
+</section>
+</section>
+<section id="types-of-id-detected" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-id-detected">1) Types of ID detected</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"testing"</span>, <span class="st">"regset.csv"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#general overview</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+false_positive       protocol            trn 
+            29              2            169 </code></pre>
+</div>
+</div>
+<p>The three main groups of ID observed were <code>trial registration numbers (trn)</code>, <code>protocols</code>, and <code>false positives</code>.</p>
+<section id="trns" class="level3">
+<h3 class="anchored" data-anchor-id="trns">TRNs</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trn <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>id_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctgov"</span>, <span class="st">"umin"</span>, <span class="st">"drks"</span>, <span class="st">"irct"</span>, <span class="st">"chictr"</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"isrctn"</span>,<span class="st">"ctri"</span>, <span class="st">"eudract"</span>, <span class="st">"actrn"</span>, <span class="st">"jrct"</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"kct"</span>, <span class="st">"ntr"</span>, <span class="st">"pactr"</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trn<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  actrn  chictr   ctgov    ctri    drks eudract    irct  isrctn    jrct     kct 
+      1       3     137       2       5       2       5       3       1       1 
+    ntr   pactr    umin 
+      1       1       7 </code></pre>
+</div>
+</div>
+<p>The majority of the trial registry numbers were from the ctgov registry, followed by umin, dkrs and irct.</p>
+<p><img src="images/Picture%203.png" class="img-fluid" width="516"></p>
+<p><strong>note on the names</strong>:</p>
+<ul>
+<li><p>ctgov - US Clinical Trials Register</p></li>
+<li><p>umin - University Hospital Medical Information Network Register</p></li>
+<li><p>drks - German Clinical Trials Register</p></li>
+<li><p>irct - Iranian Registry of Cinical Trials</p></li>
+<li><p>chictr - Chinese Clinical Trial Registry</p></li>
+<li><p>isrctn - ISRCTN Registry</p></li>
+<li><p>ctri - Clinical Trials Registry-India</p></li>
+<li><p>eudract - EU Clinical Trials Register</p></li>
+<li><p>actrn - Australian New Zealand Clinical Trial Registry</p></li>
+<li><p>jrct - Japan Registry of Clinical Trials</p></li>
+<li><p>kct - Korean Clinical Trial Registry</p></li>
+<li><p>ntr - Dutch Trial Register</p></li>
+<li><p>pactr - Pan African Clinical Trials Registry</p></li>
+</ul>
+</section>
+<section id="protocols" class="level3">
+<h3 class="anchored" data-anchor-id="protocols">Protocols</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>protocol <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>id_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"protocols_io"</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(protocol<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+protocols_io 
+           2 </code></pre>
+</div>
+</div>
+<p>We only had two IDs that were included in links to specific protocols from protocols.io</p>
+<p><img src="images/Picture%201.png" class="img-fluid" width="512"></p>
+</section>
+<section id="false-positives" class="level3">
+<h3 class="anchored" data-anchor-id="false-positives">False positives</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>false_positive <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>id_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"catalogue_id"</span>, <span class="st">"datapoint"</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"drug_id"</span>, <span class="st">"funding_id"</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"medical_acronym"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"medical_device"</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(false_positive<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   catalogue_id       datapoint         drug_id      funding_id medical_acronym 
+              3               5               6              13               1 
+ medical_device 
+              1 </code></pre>
+</div>
+</div>
+<p>The main types of false positives we encounter were IDs corresponding to specific fundings or grants.</p>
+<p><img src="images/Picture%202.png" class="img-fluid" width="542"></p>
+</section>
+</section>
+<section id="where-were-the-ids-located" class="level2">
+<h2 class="anchored" data-anchor-id="where-were-the-ids-located">2) Where were the IDs located?</h2>
+<section id="general-overview" class="level3">
+<h3 class="anchored" data-anchor-id="general-overview">General overview</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>What were the other locations?</strong> - discussion (53 cases), introduction (23 cases), acknowledgements (16 cases ), results (11 cases), etc.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="note" class="level3">
+<h3 class="anchored" data-anchor-id="note">NOTE:</h3>
+<p>The IDs analyzed could be in <strong>one or more locations</strong>, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool.</p>
+</section>
+</section>
+<section id="were-the-papers-research-articles" class="level2">
+<h2 class="anchored" data-anchor-id="were-the-papers-research-articles">3) Were the papers research articles?</h2>
+<p>Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Group data by PMCID</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PMCID) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">paper_is_research_article =</span> <span class="fu">any</span>(paper_is_research_article))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a table with counts</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>count_table <span class="ot">&lt;-</span> result <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(paper_is_research_article)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/Screenshot%202023-12-06%20at%2010.14.29.png" class="img-fluid" width="251"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ID count</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>paper_is_research_article)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+FALSE  TRUE 
+   41   159 </code></pre>
+</div>
+</div>
+<p>Out of 117 papers reviewed, 112 were research articles, and were associated with 159 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.</p>
+<p>It is important to know that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID (<a href="https://pubmed.ncbi.nlm.nih.gov/35237397/">click here to see</a>)</p>
+</section>
+<section id="did-the-tools-agreedisagree" class="level2">
+<h2 class="anchored" data-anchor-id="did-the-tools-agreedisagree">4) Did the tools agree/disagree?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ no yes 
+146  54 </code></pre>
+</div>
+</div>
+<p>Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they only agreed when the ID was a trn:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree, data<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     
+      false_positive protocol trn
+  no              29        2 115
+  yes              0        0  54</code></pre>
+</div>
+</div>
+</section>
+<section id="description-of-each-tool---type-of-id-and-location" class="level2">
+<h2 class="anchored" data-anchor-id="description-of-each-tool---type-of-id-and-location">5) Description of each tool - type of ID and location</h2>
+<section id="tool-1-sciscore" class="level3">
+<h3 class="anchored" data-anchor-id="tool-1-sciscore">Tool 1: sciscore</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of sciscore_hit = TRUE</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sciscore <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>sciscore_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+protocol      trn 
+       2       55 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+       ctgov      eudract protocols_io 
+          54            1            2 </code></pre>
+</div>
+</div>
+<p><code>sciscore</code> detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.</p>
+<p>Additionally, <code>sciscore</code> detected the IDs in more than 2 locations: abstract (24 cases), methods (55) and other location (9).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Although the majority of IDs were in both methods and another location, there were 2 cases where the IDs were found in the introduction and not in the methods section: <code>NCT03349060</code> and <code>NCT03575871</code>.</p>
+<p>These two IDs were used as a reference in the same paper (<a href="https://pubmed.ncbi.nlm.nih.gov/34406366/">click here to see</a>).</p>
+</section>
+<section id="tool-2-trialidentifier" class="level3">
+<h3 class="anchored" data-anchor-id="tool-2-trialidentifier">Tool 2: trialidentifier</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+trn 
+139 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ ctgov isrctn 
+   136      3 </code></pre>
+</div>
+</div>
+<p><code>trialidentifier</code> identified 139 trial registry number IDs, from both ctgov and isrctn.</p>
+<p>Additionally, <code>trialidentifier</code> detected the IDs in more than 2 locations: abstract (35 cases), methods (63) and other location (81).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="tool-3-ctregistries" class="level3">
+<h3 class="anchored" data-anchor-id="tool-3-ctregistries">Tool 3: ctregistries</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of ctregistries_hit = TRUE</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>ctregistries_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ctregistries<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+false_positive            trn 
+            29            166 </code></pre>
+</div>
+</div>
+<p>Out of the 4 tools, <code>ctregistries</code> was the one who selected the 29 cases of false positives. However, it also detected 166 trial registry number IDs.</p>
+<p>Finally, <code>ctregistries</code> detected the IDs in more than 2 locations: abstract (43 cases), methods (89), other location (113).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="tool-4-nct" class="level3">
+<h3 class="anchored" data-anchor-id="tool-4-nct">Tool 4: nct</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of nct_hit = TRUE</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>nct <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>nct_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+trn 
+137 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ctgov 
+  137 </code></pre>
+</div>
+</div>
+<p><code>nct</code> identified 137 trial registry number IDs, all from ctgov.</p>
+<p>Additionally, <code>nct</code> detected the IDs in more than 3 locations: abstract (34 cases), methods (61), other location (81).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="additional-observations" class="level2">
+<h2 class="anchored" data-anchor-id="additional-observations">6) Additional observations</h2>
+<section id="trn-from-the-study-itself-or-as-a-reference-to-other-studies" class="level3">
+<h3 class="anchored" data-anchor-id="trn-from-the-study-itself-or-as-a-reference-to-other-studies">TRN from the study itself or as a reference to other studies</h3>
+<p>Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. In this analysis, 71 of 137 ctgov trn’s were used as reference.</p>
+</section>
+<section id="funding-ids" class="level3">
+<h3 class="anchored" data-anchor-id="funding-ids">Funding IDs</h3>
+<p>Sometimes they were detected as IDs, but not in all cases. For example, funding IDs detected by the tools were 12 digits long:</p>
+<p><img src="images/Screenshot%202023-12-04%20at%2011.21.58.png" class="img-fluid" width="350"></p>
+<p>Funding IDs that were present in the negative control check, and therefore not detected by the tools, were slightly shorter (for example: 92035302) or longer (for example: 2016YFD0100800).</p>
+</section>
+<section id="trn-with-missing-digits" class="level3">
+<h3 class="anchored" data-anchor-id="trn-with-missing-digits">TRN with missing digits</h3>
+<p>There were two cases of ctgov IDs reported with a missing digit, but the tools <code>trialidentifier</code> and <code>nct</code> were still able to identify them.</p>
+<p><img src="images/Screenshot%202023-12-06%20at%2009.28.29.png" class="img-fluid"></p>
+</section>
+<section id="negative-control-check-summary" class="level3">
+<h3 class="anchored" data-anchor-id="negative-control-check-summary">Negative-control check summary</h3>
+<p>Overall, out of the 50 papers reviewed, there where only three papers flagged for a possible registration number:</p>
+<ol type="1">
+<li><p>Number ID found for the Institutional Animal Care and Use Committee (IACUC): <code>2014092403</code>. This could be a protocol ID.</p></li>
+<li><p>Number ID from www.researchregistry.com: <code>researchregistry7399</code></p></li>
+<li><p>Number ID for Prospero Registry: <code>CRD42021225699</code></p></li>
+</ol>
+<p>There were also Ethical ID numbers present in 7 cases. These types of ID were not detected by the tools, but one could question if those are considered as a form of registration or not.</p>
+<p>Finally, as mention before, there were 6 cases of funding IDs that were present on some of these papers. The IDs were different as the ones that were being detected in the main analysis as funding_ids.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
