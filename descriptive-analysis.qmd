@@ -39,7 +39,7 @@ library(RColorBrewer)
 ```{r message = FALSE, warning = FALSE}
 
 #load dataset
-data <- read_csv(here("testing", "regset.csv"))
+data <- read_csv(here("data", "regset.csv"))
 
 #general overview
 table(data$id_type_group)
