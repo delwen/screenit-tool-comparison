@@ -341,6 +341,12 @@ ctregistries %>%
   count(id_type_group) %>%
   arrange(desc(n)) %>%
   kable()
+
+ctregistries %>%
+  filter(id_type_group == "trn") %>%
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
 ```
 
 Out of the 4 tools, `ctregistries` was the one who selected the 29 cases of false positives, and the majority (13 cases) were funding ids:
