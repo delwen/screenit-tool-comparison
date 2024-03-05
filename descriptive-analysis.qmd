@@ -8,9 +8,39 @@ editor: visual
 
 This document presents the descriptive results from the analysis of 4 different tools (`sciscore`, `trialidentifier`, `ctregistries` and `nct`). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).
 
-This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed.
+#### Data description
 
-#### Main analyses:
+This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed. These IDs were grouped in a data file named `regset.csv`, with the following variables/columns:
+
+-   **Identifier**: character. It contains the ID detected. Example: `NCT03192410`.
+
+-   **PMCID**: character. PMC identifier of the paper where the ID was found.
+
+-   **sciscore_hit:** boolean. It is `TRUE` if the tool **sciscore** detected the identifier. Otherwise `FALSE`.
+
+-   **trialidentifier_hit:** boolean. It is `TRUE` if the tool **trialidentifier** detected the identifier. Otherwise `FALSE`.
+
+-   **ctregistries_hit:** boolean. It is `TRUE` if the tool **ctregistries** detected the identifier. Otherwise `FALSE`.
+
+-   **nct_hit**: boolean. It is `TRUE` if the tool **nct** detected the identifier. Otherwise `FALSE`.
+
+-   **paper_url**: link to the PubMed website where the paper is available.
+
+-   **id_type_group**: character. Broad registration category for the detected identifier. For example, if the id is a trial registration identifier number, then the category is `trn`.
+
+-   **id_type**: character. Specific type of identifier found. For example, if the id is grouped as a trn, then the id type consists of the initials of the registry where it comes from, such as `ctgov`.
+
+-   **id_in_abstract**: boolean. It is `TRUE` if the identifier is present in abstract, otherwise it is `FALSE`.
+
+-   **id_in_methods**: boolean. It is `TRUE` if the identifier is present in methods, otherwise it is `FALSE`.
+
+-   **id_in_other_location**: boolean. It is `TRUE` if the identifier is present in another location besides from abstract and methods, otherwise it is `FALSE`.
+
+-   **other_location**: character. If *id_in_other_location* was `TRUE`, then the section(s) where the identifier was found in was written in lowercase, and if present in more than one section, it was separated with a comma.
+
+-   **paper_is_research_article**: boolean. It is `TRUE` if the paper is a primary research article with the typical sections of a paper (abstract, introduction, methods, etc.). Otherwise `FALSE` (e.g., protocol paper, review, etc.)
+
+#### Main analyses conducted:
 
 1.  Types of ID detected
 
@@ -22,7 +52,9 @@ This analysis was limited to papers (n = 117) where a hit was found by one or mo
 
 5.  Description of each tool - type of ID and location
 
-6.  Additional observations
+6.  False positives overview
+
+7.  Additional observations
 
 ## 1) Types of ID detected
 
@@ -34,6 +66,8 @@ library(ggplot2)
 library(here)
 library(wordcloud)
 library(RColorBrewer)
+library(knitr)
+library(tidyverse)
 ```
 
 ```{r message = FALSE, warning = FALSE}
@@ -42,25 +76,26 @@ library(RColorBrewer)
 data <- read_csv(here("data", "regset.csv"))
 
 #general overview
-table(data$id_type_group)
+data %>%
+  count(id_type_group) %>%
+  arrange(desc(n)) %>%
+  kable()
 ```
 
-The three main groups of ID observed were `trial registration numbers (trn)`, `protocols`, and `false positives`.
+The three main groups of ID observed were `trial registration numbers (trn)`, `false positives` and `protocols`.
 
 ### TRNs
 
 ```{r message = FALSE, warning = FALSE}
 
-trn <- subset(data, data$id_type %in% c("ctgov", "umin", "drks", "irct", "chictr", 
-                                        "isrctn","ctri", "eudract", "actrn", "jrct", 
-                                        "kct", "ntr", "pactr"))
-
-table(trn$id_type)
+data %>%
+  filter(id_type_group == "trn") %>%
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
 ```
 
 The majority of the trial registry numbers were from the ctgov registry, followed by umin, dkrs and irct.
-
-![](images/Picture%203.png){width="516"}
 
 **note on the names**:
 
@@ -94,9 +129,11 @@ The majority of the trial registry numbers were from the ctgov registry, followe
 
 ```{r message = FALSE, warning = FALSE}
 
-protocol <- subset(data, data$id_type %in% c("protocols_io"))
-
-table(protocol$id_type)
+data %>%
+  filter(id_type_group == "protocol") %>%
+  count(id_type_group) %>%
+  arrange(desc(n)) %>%
+  kable()
 ```
 
 We only had two IDs that were included in links to specific protocols from protocols.io
@@ -107,17 +144,14 @@ We only had two IDs that were included in links to specific protocols from proto
 
 ```{r message = FALSE, warning = FALSE}
 
-false_positive <- subset(data, data$id_type %in% c("catalogue_id", "datapoint", 
-                                                   "drug_id", "funding_id", 
-                                                   "medical_acronym",
-                                                   "medical_device"))
-
-table(false_positive$id_type)
+data %>%
+  filter(id_type_group == "false_positive") %>%
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
 ```
 
 The main types of false positives we encounter were IDs corresponding to specific fundings or grants.
-
-![](images/Picture%202.png){width="542"}
 
 ## 2) Where were the IDs located?
 
@@ -175,41 +209,46 @@ The IDs analyzed could be in **one or more locations**, that is why there are mo
 Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).
 
 ```{r message = FALSE, warning = FALSE}
-library(tidyverse)
-
+#Calculating number of papers that were research articles
 #Group data by PMCID
-result <- data %>%
+data %>%
   group_by(PMCID) %>%
-  summarise(paper_is_research_article = any(paper_is_research_article))
-
-#Create a table with counts
-count_table <- result %>%
-  count(paper_is_research_article)
+  summarise(paper_is_research_article = any(paper_is_research_article)) %>%
+  count(paper_is_research_article) %>%
+  arrange(desc(paper_is_research_article)) %>%
+  kable()
 ```
 
-![](images/Screenshot%202023-12-06%20at%2010.14.29.png){width="251"}
-
 ```{r message = FALSE, warning = FALSE}
-  
-#ID count
-table(data$paper_is_research_article)
+#Calculating number of IDs coming from papers that were research articles.
+data %>%
+  count(paper_is_research_article) %>%
+  arrange(desc(paper_is_research_article)) %>%
+  kable()
 ```
 
 Out of 117 papers reviewed, 112 were research articles, and were associated with 159 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.
 
-It is important to know that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID ([click here to see](https://pubmed.ncbi.nlm.nih.gov/35237397/))
+It is important to note that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID ([click here to see article](https://pubmed.ncbi.nlm.nih.gov/35237397/))
 
 ## 4) Did the tools agree/disagree?
 
 ```{r message = FALSE, warning = FALSE}
 
-table(data$tools_agree)
+data %>%
+  count(tools_agree) %>%
+  arrange(desc(tools_agree)) %>%
+  kable()
 ```
 
 Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they only agreed when the ID was a trn:
 
 ```{r message = FALSE, warning = FALSE}
-table(data$tools_agree, data$id_type_group)
+
+data %>%
+  count(tools_agree, id_type_group) %>%
+  arrange(desc(tools_agree)) %>%
+  kable()
 ```
 
 ## 5) Description of each tool - type of ID and location
@@ -220,13 +259,14 @@ table(data$tools_agree, data$id_type_group)
 #subset of sciscore_hit = TRUE
 sciscore <- subset(data, data$sciscore_hit %in% c("TRUE"))
 
-table(sciscore$id_type_group)
-table(sciscore$id_type)
+sciscore %>%
+  count(id_type_group, id_type) %>%
+  kable()
 ```
 
-`sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.
+`sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were only from ctgov and eudract registries.
 
-Additionally, `sciscore` detected the IDs in more than 2 locations: abstract (24 cases), methods (55) and other location (9).
+Additionally, `sciscore` detected the IDs in more than 2 locations: abstract (24 cases), methods (55) and other location (8):
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -252,7 +292,7 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 
 Although the majority of IDs were in both methods and another location, there were 2 cases where the IDs were found in the introduction and not in the methods section: `NCT03349060` and `NCT03575871`.
 
-These two IDs were used as a reference in the same paper ([click here to see](https://pubmed.ncbi.nlm.nih.gov/34406366/)).
+These two IDs were used as a reference in the same paper ([click here to see research article](https://pubmed.ncbi.nlm.nih.gov/34406366/)).
 
 ### Tool 2: trialidentifier
 
@@ -260,13 +300,14 @@ These two IDs were used as a reference in the same paper ([click here to see](ht
 #subset of trialidentifier_hit = TRUE
 trialidentifier <- subset(data, data$trialidentifier_hit %in% c("TRUE"))
 
-table(trialidentifier$id_type_group)
-table(trialidentifier$id_type)
+trialidentifier %>%
+  count(id_type_group, id_type) %>%
+  kable()
 ```
 
-`trialidentifier` identified 139 trial registry number IDs, from both ctgov and isrctn.
+`trialidentifier` identified 139 trial registry number IDs, 136 from ctgov and 3 from isrctn.
 
-Additionally, `trialidentifier` detected the IDs in more than 2 locations: abstract (35 cases), methods (63) and other location (81).
+Additionally, `trialidentifier` detected the IDs in more than 2 locations: abstract (35 cases), methods (65) and other location (80):
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -296,12 +337,41 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 #subset of ctregistries_hit = TRUE
 ctregistries <- subset(data, data$ctregistries_hit %in% c("TRUE"))
 
-table(ctregistries$id_type_group)
+ctregistries %>%
+  count(id_type_group) %>%
+  arrange(desc(n)) %>%
+  kable()
+
+ctregistries %>%
+  filter(id_type_group == "trn") %>%
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
 ```
 
-Out of the 4 tools, `ctregistries` was the one who selected the 29 cases of false positives. However, it also detected 166 trial registry number IDs.
+Out of the 4 tools, `ctregistries` was the one who selected the 29 cases of false positives, and the majority (13 cases) were funding ids:
 
-Finally, `ctregistries` detected the IDs in more than 2 locations: abstract (43 cases), methods (89), other location (113).
+```{r message = FALSE, warning = FALSE}
+
+ctregistries %>%
+  filter(id_type_group == "false_positive") %>%
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
+```
+
+However, it also detected 166 trial registry number IDs, and the majority (134) were ctgov registry ids:
+
+```{r message = FALSE, warning = FALSE}
+
+ctregistries %>%
+  filter(id_type_group == "trn") %>%
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
+```
+
+Finally, `ctregistries` detected the IDs in more than 2 locations: abstract (43 cases), methods (91), other location (112):
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -331,13 +401,15 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 #subset of nct_hit = TRUE
 nct <- subset(data, data$nct_hit %in% c("TRUE"))
 
-table(nct$id_type_group)
-table(nct$id_type)
+nct %>%
+  count(id_type_group, id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
 ```
 
 `nct` identified 137 trial registry number IDs, all from ctgov.
 
-Additionally, `nct` detected the IDs in more than 3 locations: abstract (34 cases), methods (61), other location (81).
+Additionally, `nct` detected the IDs in more than 2 locations: abstract (34 cases), methods (63), other location (80):
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -361,7 +433,70 @@ bar_midpoints <- barplot(count_true, plot = FALSE)
 text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
-## 6) Additional observations
+### Comparative analysis of the 4 tools
+
+```{r message = FALSE, warning = FALSE}
+
+data %>%
+  filter(id_type_group == "trn") %>% 
+  count(ctregistries_hit, sciscore_hit, trialidentifier_hit, nct_hit) %>%
+  kable()
+
+```
+
+Based on this table, we can see that:
+
+-   **ctregistries** detected 28 trial registration ids that no other tool found, and only missed 3 ids that were detected by both trialidentifier and nct.
+
+-   **sciscore** detected 54 ids that all the other tools also found, and it found only one extra id that was also detected by ctregistries. Overall the tool missed 114 trial registration ids.
+
+-   **trialidentifier** seem to agree in the majority of cases with nct, but it found 3 additional ids. Overall the tool missed 30 trial registration ids.
+
+-   **nct** found only one additional ids compared to trial identifier. Overall the tool missed 32 trial registration ids.
+
+## 6) False positives overview
+
+As reported before, the 29 false positives were detected by ctregistries. The locations of these false positive were in the methods section (5 cases) and other location (24 cases):
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+false_positive <- data %>%
+  filter(id_type_group == "false_positive")
+
+# Select only the three columns of interest
+location_analysis5 <- false_positive[, c("id_in_abstract", "id_in_methods", 
+                                 "id_in_other_location")]
+
+# Count TRUE values for each selected variable
+count_true <- colSums(location_analysis5)
+
+#create barplot
+barplot(count_true, names.arg = colnames(location_analysis5), 
+        col = custom_palette(length(count_true)), 
+        main = "Location of false positives", ylab = "Count",
+        ylim = c(0, max(count_true) + 10))
+
+#calculate midpoints of bars
+bar_midpoints <- barplot(count_true, plot = FALSE)
+
+#add total count
+text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
+
+```
+
+Out of the 24 false positives that were found in another location, 13 were found in the acknowledgments section and consisted only of funding IDs, 10 were found in the results section, from which 6 were drug ids and 4 were datapoints. Finally, one false positive was found in the introduction section, and it consisted of a medical acronym.
+
+```{r message = FALSE, warning = FALSE}
+
+false_positive %>%
+  filter(!is.na(other_location)) %>%
+  group_by(id_type) %>%
+  count(other_location) %>%
+  arrange(desc(n)) %>%
+  kable()
+```
+
+## 7) Additional observations
 
 ### TRN from the study itself or as a reference to other studies
 
@@ -382,6 +517,18 @@ There were two cases of ctgov IDs reported with a missing digit, but the tools `
 ![](images/Screenshot%202023-12-06%20at%2009.28.29.png)
 
 ### Negative-control check summary
+
+An additional analysis was conducted on 50 research articles where a hit was not found by any of the tools. These papers were grouped in a dataset called `nc_man_check`, which contained the following variables/columns:
+
+-   **PMCID**: character. PMC identifier of the paper where no registration ID was found.
+
+-   **paper_url**: link to the PubMed website where the paper is available.
+
+-   **reg_id_in_paper**: nominal. `TRUE` if paper contains one or more registration ids, `FALSE` if it does not contain any registration id, and `Unsure` if it contains an suspected registration id.
+
+-   **reg_id**: character. If reg_id_in_paper is TRUE or Unsure, this column registers the id or suspected id.
+
+-   **comments**: character. Brief observation on the flagged id.
 
 Overall, out of the 50 papers reviewed, there where only three papers flagged for a possible registration number:
 

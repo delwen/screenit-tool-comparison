@@ -1,0 +1,201 @@
+Identifier,PMCID,sciscore_hit,trialidentifier_hit,ctregistries_hit,nct_hit,paper_url,id_type_group,id_type,id_in_abstract,id_in_methods,id_in_other_location,other_location,paper_is_research_article,comments_reviewer1,comments_reviewer2,tools_agree
+IRCT20190222042803N1,PMC8236676,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8236676/,trn,irct,FALSE,TRUE,TRUE,"acknowledgements, footnotes",TRUE,,,no
+NCT03192410,PMC8246616,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8246616/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+UMIN000036097,PMC8381433,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8381433/,trn,umin,TRUE,TRUE,FALSE,,TRUE,,,no
+IRCT20200127046275N1,PMC8647262,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8647262/,trn,irct,TRUE,TRUE,FALSE,,TRUE,,,no
+NCT01923051,PMC8089082,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8089082/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+201603250060,PMC8153979,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8153979/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,"Methods called ""experimental section""","consider as research article as ""experimental section"" - BUT add comment ""methods called ""experimental section""",no
+201803040003,PMC8053869,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8053869/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
+NCT03442777,PMC8359283,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8359283/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT0002523,PMC8798459,FALSE,TRUE,FALSE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8798459/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,digit missing in NCT number: number was reported like this on paper,digit missing in NCT number,no
+201803020002,PMC8610312,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8610312/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
+NCT04126252,PMC8847802,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8847802/,trn,ctgov,FALSE,FALSE,TRUE,ethics_statement,TRUE,,,no
+UMIN000029132,PMC8265923,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8265923/,trn,umin,TRUE,FALSE,FALSE,,TRUE,,,no
+2008-007237-47,PMC8814304,TRUE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8814304/,trn,eudract,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT02832193,PMC8814304,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8814304/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+ISRCTN18978802,PMC8814304,FALSE,TRUE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8814304/,trn,isrctn,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT00883051,PMC8195962,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8195962/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT03252015,PMC8195962,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8195962/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT03465436,PMC8195962,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8195962/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT03988088,PMC8195962,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8195962/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,no
+NCT03769506,PMC8353912,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8353912/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT04420962,PMC8496413,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8496413/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+KCT0004670,PMC8753277,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8753277/,trn,kct,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT04269629,PMC8359427,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8359427/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT03128528,PMC8712907,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8712907/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+UMIN000012045,PMC8122242,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8122242/,trn,umin,FALSE,FALSE,TRUE,disclosure,TRUE,,,no
+NCT03616834,PMC8323864,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8323864/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,STAR*Methods,"consider as research article, methods in ""STAR*Methods"" - BUT add comment for STAR*Methods",no
+NCT04622007,PMC8323864,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8323864/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,STAR*Methods,"consider as research article, methods in ""STAR*Methods"" - BUT add comment for STAR*Methods",no
+DRKS00016605,PMC8259428,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8259428/,trn,drks,FALSE,FALSE,TRUE,ethics_statement,TRUE,,,no
+NCT02921139,PMC8532585,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8532585/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT04510012,PMC8922213,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8922213/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT01740427,PMC8265363,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8265363/,trn,ctgov,TRUE,FALSE,TRUE,"introduction, acknowledgements",TRUE,,,no
+NCT01942135,PMC8265363,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8265363/,trn,ctgov,TRUE,FALSE,TRUE,"introduction, acknowledgements",TRUE,,,no
+NCT01643187,PMC8710120,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8710120/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT01830959,PMC8552567,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8552567/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT02750085,PMC8494515,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8494515/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT04678258,PMC8322787,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8322787/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+DRKS00020533,PMC8322787,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8322787/,trn,drks,FALSE,TRUE,FALSE,,TRUE,,,no
+202102310548,PMC8851657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8851657/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,"Methods called ""experimental section""","consider as research article as ""experiments"" - BUT add comment ""methods called ""experiments""",no
+NCT03653689,PMC8827068,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8827068/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT01833104,PMC8280951,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8280951/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT04002700,PMC8605955,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8605955/,trn,ctgov,FALSE,TRUE,TRUE,declarations,TRUE,,,no
+NL11,PMC8373830,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8373830/,false_positive,medical_device,FALSE,TRUE,FALSE,,TRUE,"full name was ""VNL11""",ok - agree with false positive,no
+NCT02006615,PMC8857363,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8857363/,trn,ctgov,TRUE,FALSE,TRUE,ethics_statement,TRUE,,,no
+UMIN000004575,PMC8423660,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8423660/,trn,umin,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT02562755,PMC8487208,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8487208/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+IRCT 20100512003915N20,PMC8305757,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8305757/,trn,irct,FALSE,TRUE,FALSE,,TRUE,,,no
+DRKS00011615,PMC8006617,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8006617/,trn,drks,FALSE,TRUE,FALSE,,TRUE,,,no
+ACTRN12618001762246,PMC8556752,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8556752/,trn,actrn,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT03494699,PMC8719348,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8719348/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT02747251,PMC8411479,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8411479/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+201908350095,PMC8435827,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8435827/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
+https://dx.doi.org/10.17504/protocols.io.bagaibse,PMC8379522,TRUE,FALSE,FALSE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8379522/,protocol,protocols_io,FALSE,TRUE,FALSE,,FALSE,Protocol paper,"correct, this is not a traditional research article but a protocol paper - add this in comments",no
+NCT02706873,PMC8516509,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8516509/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT02706951,PMC8516509,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8516509/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+DRKS00013231,PMC8867313,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8867313/,trn,drks,TRUE,TRUE,FALSE,,TRUE,,,no
+NCT02825394,PMC8180376,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8180376/,trn,ctgov,TRUE,TRUE,TRUE,discussion,TRUE,,,yes
+ISRCTN14848787,PMC8350004,FALSE,TRUE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8350004/,trn,isrctn,TRUE,TRUE,FALSE,,TRUE,,,no
+NCT02146924,PMC8762141,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8762141/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT02153580,PMC8762141,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8762141/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT01953900,PMC8762141,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8762141/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT02506933,PMC8762141,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8762141/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT01312350,PMC8009170,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8009170/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+IRCT20130329012869N2,PMC8506249,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8506249/,trn,irct,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT02339922,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,"agree, this is not a traditional research article but a review - add comment for all instances",no
+NCT02343120,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT02420795,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT02632396,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT02736617,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT02793583,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT02825836,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT02952508,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03037645,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03153202,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03161483,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03206970,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03229382,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03235544,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03323151,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03456726,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03478514,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03616782,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03625037,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03629873,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03676504,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03740529,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03997968,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04047797,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04072458,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04082936,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04234061,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04282018,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04323657,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04398953,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04434196,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04763083,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT05076097,PMC8882940,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8882940/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT02853344,PMC8078262,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8078262/,trn,ctgov,FALSE,TRUE,TRUE,"introduction, trial_info",TRUE,,,yes
+NCT02593201,PMC8612137,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8612137/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT03671265,PMC8489938,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8489938/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT04426955,PMC8489938,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8489938/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT02138734,PMC8096327,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8096327/,trn,ctgov,FALSE,TRUE,TRUE,discussion,TRUE,,,yes
+NCT03022825,PMC8096327,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8096327/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT2927821,PMC8745481,FALSE,TRUE,FALSE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8745481/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,digit missing in NCT number: number reported like #NCT-2927821 on paper,digit missing in NCT number,no
+nL 194,PMC8504229,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8504229/,false_positive,datapoint,FALSE,TRUE,FALSE,,TRUE,mean reported with a typo (meanL 194 days),,no
+NCT04381234,PMC8323132,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8323132/,trn,ctgov,FALSE,FALSE,TRUE,results,TRUE,,,no
+ChiCTR2000030970,PMC8246018,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8246018/,trn,chictr,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT02077881,PMC8019197,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8019197/,trn,ctgov,FALSE,FALSE,TRUE,"introduction, discussion",TRUE,,,no
+NCT03414229,PMC8019197,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8019197/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT03432676,PMC8019197,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8019197/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT03495388,PMC8238023,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8238023/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT04510207,PMC8662959,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8662959/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+https://gx.doi.org/10.17504/protocols.io.bdp7i5rn,PMC8382122,TRUE,FALSE,FALSE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8382122/,protocol,protocols_io,FALSE,TRUE,FALSE,,TRUE,,"consider this a research article as it has all the typical sections (incl. methods, results)",no
+NCT00826241,PMC8561126,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8561126/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,agree - add comment to all instances,no
+NCT02851706,PMC8561126,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8561126/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03173950,PMC8561126,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8561126/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT03251989,PMC8561126,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8561126/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+NCT04541082,PMC8561126,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8561126/,trn,ctgov,FALSE,FALSE,TRUE,discussion,FALSE,Review,,no
+CTRI/2019/01/016982,PMC8948332,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8948332/,trn,ctri,FALSE,FALSE,TRUE,ethics_statement,TRUE,,,no
+NCT02303002,PMC8648634,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8648634/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT03004248,PMC8648634,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8648634/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT03014622,PMC8648634,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8648634/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT03014635,PMC8648634,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8648634/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT01363544,PMC8273841,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8273841/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT03349060,PMC8374743,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8374743/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,yes
+NCT03575871,PMC8374743,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8374743/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,yes
+NCT03796676,PMC8374743,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8374743/,trn,ctgov,TRUE,FALSE,TRUE,introduction,TRUE,,,no
+NL 111,PMC8390327,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8390327/,false_positive,datapoint,FALSE,FALSE,TRUE,results,TRUE,,,no
+NL 133,PMC8390327,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8390327/,false_positive,datapoint,FALSE,FALSE,TRUE,results,TRUE,,,no
+NL 147,PMC8390327,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8390327/,false_positive,datapoint,FALSE,FALSE,TRUE,results,TRUE,,,no
+NL 78,PMC8390327,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8390327/,false_positive,datapoint,FALSE,FALSE,TRUE,results,TRUE,,,no
+PACTR201804003064160,PMC8287600,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8287600/,trn,pactr,TRUE,FALSE,TRUE,ethics_statement,TRUE,,,no
+ChiCTR1900027451,PMC8258074,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8258074/,trn,chictr,TRUE,TRUE,FALSE,,TRUE,,,no
+UMIN000040708,PMC8218596,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8218596/,trn,umin,FALSE,TRUE,FALSE,,TRUE,,,no
+201704020214,PMC8045915,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8045915/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
+NCT04636463,PMC8991527,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8991527/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+201903007834,PMC8577151,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8577151/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,FALSE,Protocol paper,"correct, this is not a traditional research article but a protocol paper - keep in comments",no
+NCT01345253,PMC8256836,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8256836/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT01484496,PMC8256836,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8256836/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT01597622,PMC8256836,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8256836/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+201507720006,PMC8359274,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8359274/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
+NCT00418041,PMC8006606,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8006606/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
+UMIN:000000562,PMC8006606,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8006606/,trn,umin,FALSE,TRUE,FALSE,,TRUE,,,no
+DRKS00015615,PMC8006725,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8006725/,trn,drks,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT04198701,PMC8772438,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8772438/,trn,ctgov,TRUE,FALSE,TRUE,introduction,TRUE,,,no
+CTRI/2017/03/008022,PMC8802728,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8802728/,trn,ctri,FALSE,TRUE,FALSE,,TRUE,,,no
+201406890016,PMC8749962,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8749962/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,No methods section,would keep as research article but add in comments that there is no methods section,no
+NCT03286374,PMC8714017,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8714017/,trn,ctgov,TRUE,FALSE,TRUE,ethics_statement,TRUE,,,no
+UMIN000004490,PMC8221703,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8221703/,trn,umin,FALSE,FALSE,TRUE,trial_info,TRUE,,,no
+201904010464,PMC8590077,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8590077/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,STAR*Methods,"consider as research article, methods in ""STAR*Methods"" - BUT add comment for STAR*Methods",no
+NCT03093220,PMC8760989,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8760989/,trn,ctgov,FALSE,TRUE,TRUE,ethics_statement,TRUE,,,yes
+IRCT20151107024909N10,PMC8771815,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8771815/,trn,irct,FALSE,TRUE,TRUE,trial_info,TRUE,,,no
+NCT02578940,PMC8754096,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8754096/,trn,ctgov,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+201802020016,PMC8027567,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8027567/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,"Methods called ""experimental procedures""","consider as research article as ""experimental procedures"" - BUT add comment ""methods called ""experimental procedures""",no
+202102020147,PMC8935403,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8935403/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
+NCT04669535,PMC8983315,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8983315/,trn,ctgov,FALSE,FALSE,TRUE,"introduction, discussion",TRUE,,"consider as research article as ""materials and methods"" section - no need for a special comment here as ""materials and methods"" is quite common",no
+NCT04798235,PMC8983315,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8983315/,trn,ctgov,FALSE,FALSE,TRUE,"introduction, discussion",TRUE,,"consider as research article as ""materials and methods"" section - no need for a special comment here as ""materials and methods"" is quite common",no
+201906635011,PMC8299156,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8299156/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,FALSE,"No methods section, does not seem like typical research article",agree with your assessment that it is not a typical research article - keep comment,no
+NCT02425644,PMC8008435,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8008435/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NL6435,PMC8713010,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8713010/,trn,ntr,TRUE,TRUE,FALSE,,TRUE,,,no
+NCT02969356,PMC8191476,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8191476/,trn,ctgov,TRUE,TRUE,TRUE,footnotes,TRUE,,,yes
+NCT02274428,PMC8176840,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8176840/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT03406845,PMC8902179,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8902179/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT01768585,PMC8024658,FALSE,TRUE,FALSE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
+2012–001989-15,PMC8024658,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,eudract,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT 01768585,PMC8024658,FALSE,FALSE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT03328299,PMC8753994,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8753994/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT02780167,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,"there was another trn on the paper, but it seems it was not detected on this case (NCT03575871)",also NCT03349060 was not found - this made me aware of a bug!,yes
+NCT03349060,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,NEW DATA TO EXTRACT! - Ready,yes
+NCT03575871,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,TRUE,,TRUE,,NEW DATA TO EXTRACT! - Ready,yes
+NCT03850340,PMC8021382,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8021382/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT01041989,PMC8361986,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8361986/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT02168842,PMC8485609,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8485609/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
+NL010,PMC8478793,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8478793/,false_positive,catalogue_id,FALSE,TRUE,FALSE,,TRUE,,,no
+NL557,PMC8478793,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8478793/,false_positive,catalogue_id,FALSE,TRUE,FALSE,,TRUE,,,no
+NL577,PMC8478793,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8478793/,false_positive,catalogue_id,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT02861534,PMC8453520,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8453520/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT03528863,PMC8842457,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8842457/,trn,ctgov,TRUE,FALSE,FALSE,,TRUE,,,no
+jRCTs031200106,PMC8500489,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8500489/,trn,jrct,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT01859988,PMC8560147,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8560147/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT02277743,PMC8560147,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8560147/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT02755649,PMC8560147,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8560147/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT02260986,PMC8560147,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8560147/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,no
+NCT02277769,PMC8560147,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8560147/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,no
+C000003927,PMC8367657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8367657/,false_positive,drug_id,FALSE,FALSE,TRUE,results,TRUE,,,no
+C000004175,PMC8367657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8367657/,false_positive,drug_id,FALSE,FALSE,TRUE,results,TRUE,,,no
+C000012503,PMC8367657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8367657/,false_positive,drug_id,FALSE,FALSE,TRUE,results,TRUE,,,no
+C000014210,PMC8367657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8367657/,false_positive,drug_id,FALSE,FALSE,TRUE,results,TRUE,,,no
+C000036701,PMC8367657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8367657/,false_positive,drug_id,FALSE,FALSE,TRUE,results,TRUE,,,no
+C000052955,PMC8367657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8367657/,false_positive,drug_id,FALSE,FALSE,TRUE,results,TRUE,,,no
+NL63,PMC8367657,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8367657/,false_positive,medical_acronym,FALSE,FALSE,TRUE,introduction,TRUE,,,no
+NCT04601090,PMC8014826,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8014826/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+NCT02564211,PMC8453748,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8453748/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+NCT02577003,PMC8453748,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8453748/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
+ChiCTR1900027404,PMC8579873,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8579873/,trn,chictr,TRUE,TRUE,TRUE,ethics_statement,TRUE,,,no
+NCT02601014,PMC8524287,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8524287/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT02788773,PMC8524287,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8524287/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT02985957,PMC8524287,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8524287/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
+NCT01417598,PMC8608774,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8608774/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
+ISRCTN10623443,PMC8475051,FALSE,TRUE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8475051/,trn,isrctn,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT03128528,PMC8120369,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8120369/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,NEW DATA TO EXTRACT! - ready,yes
