@@ -134,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="types-of-id-detected">1) Types of ID detected</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"regset.csv"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed"</span>, <span class="st">"regset.csv"</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#general overview</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="note" class="level3">
 <h3 class="anchored" data-anchor-id="note">NOTE:</h3>
-<p>The IDs analyzed could be in <strong>one or more locations</strong>, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool.</p>
+<p>The IDs analyzed could be in <strong>one or more locations</strong> of the paper, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool. Some tools searched for the IDs in a particular section of a paper, but if the ID was also present in another section of the same paper, it was also recorded on the datafile.</p>
 </section>
 </section>
 <section id="were-the-papers-research-articles" class="level2">
@@ -528,7 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>sciscore</code> detected 55 trial registry number IDs and 2 protocol IDs. The trn were only from ctgov and eudract registries.</p>
-<p>Additionally, <code>sciscore</code> detected the IDs in more than 2 locations: abstract (24 cases), methods (55) and other location (8):</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (24 cases), methods (55) and other location (8):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
@@ -571,7 +571,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>trialidentifier</code> identified 139 trial registry number IDs, 136 from ctgov and 3 from isrctn.</p>
-<p>Additionally, <code>trialidentifier</code> detected the IDs in more than 2 locations: abstract (35 cases), methods (65) and other location (80):</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (35 cases), methods (65) and other location (80):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
@@ -794,7 +794,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p>Finally, <code>ctregistries</code> detected the IDs in more than 2 locations: abstract (43 cases), methods (91), other location (112):</p>
+<p>Finally, the IDs were present in more than 2 locations on the paper: abstract (43 cases), methods (91), other location (112):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
@@ -831,7 +831,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>nct</code> identified 137 trial registry number IDs, all from ctgov.</p>
-<p>Additionally, <code>nct</code> detected the IDs in more than 2 locations: abstract (34 cases), methods (63), other location (80):</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (34 cases), methods (63), other location (80):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
@@ -997,14 +997,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>reg_id</strong>: character. If reg_id_in_paper is TRUE or Unsure, this column registers the id or suspected id.</p></li>
 <li><p><strong>comments</strong>: character. Brief observation on the flagged id.</p></li>
 </ul>
-<p>Overall, out of the 50 papers reviewed, there where only three papers flagged for a possible registration number:</p>
+<p>Overall, out of the 50 papers reviewed, there were only three papers flagged for a possible registration number:</p>
 <ol type="1">
 <li><p>Number ID found for the Institutional Animal Care and Use Committee (IACUC): <code>2014092403</code>. This could be a protocol ID.</p></li>
 <li><p>Number ID from www.researchregistry.com: <code>researchregistry7399</code></p></li>
 <li><p>Number ID for Prospero Registry: <code>CRD42021225699</code></p></li>
 </ol>
 <p>There were also Ethical ID numbers present in 7 cases. These types of ID were not detected by the tools, but one could question if those are considered as a form of registration or not.</p>
-<p>Finally, as mention before, there were 6 cases of funding IDs that were present on some of these papers. The IDs were different as the ones that were being detected in the main analysis as funding_ids.</p>
+<p>Finally, as mentioned before, there were 6 cases of funding IDs that were present on some of these papers. The IDs were different as the ones that were being detected in the main analysis as funding_ids.</p>
 </section>
 </section>
 
