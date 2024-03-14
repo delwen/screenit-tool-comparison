@@ -97,15 +97,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>This document presents the descriptive results from the analysis of 4 different tools (<code>sciscore</code>, <code>trialidentifier</code>, <code>ctregistries</code> and <code>nct</code>). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).</p>
-<p>This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed.</p>
-<section id="main-analyses" class="level4">
-<h4 class="anchored" data-anchor-id="main-analyses">Main analyses:</h4>
+<section id="data-description" class="level4">
+<h4 class="anchored" data-anchor-id="data-description">Data description</h4>
+<p>This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed. These IDs were grouped in a data file named <code>regset.csv</code>, with the following variables/columns:</p>
+<ul>
+<li><p><strong>Identifier</strong>: character. It contains the ID detected. Example: <code>NCT03192410</code>.</p></li>
+<li><p><strong>PMCID</strong>: character. PMC identifier of the paper where the ID was found.</p></li>
+<li><p><strong>sciscore_hit:</strong> boolean. It is <code>TRUE</code> if the tool <strong>sciscore</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
+<li><p><strong>trialidentifier_hit:</strong> boolean. It is <code>TRUE</code> if the tool <strong>trialidentifier</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
+<li><p><strong>ctregistries_hit:</strong> boolean. It is <code>TRUE</code> if the tool <strong>ctregistries</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
+<li><p><strong>nct_hit</strong>: boolean. It is <code>TRUE</code> if the tool <strong>nct</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
+<li><p><strong>paper_url</strong>: link to the PubMed website where the paper is available.</p></li>
+<li><p><strong>id_type_group</strong>: character. Broad registration category for the detected identifier. For example, if the id is a trial registration identifier number, then the category is <code>trn</code>.</p></li>
+<li><p><strong>id_type</strong>: character. Specific type of identifier found. For example, if the id is grouped as a trn, then the id type consists of the initials of the registry where it comes from, such as <code>ctgov</code>.</p></li>
+<li><p><strong>id_in_abstract</strong>: boolean. It is <code>TRUE</code> if the identifier is present in abstract, otherwise it is <code>FALSE</code>.</p></li>
+<li><p><strong>id_in_methods</strong>: boolean. It is <code>TRUE</code> if the identifier is present in methods, otherwise it is <code>FALSE</code>.</p></li>
+<li><p><strong>id_in_other_location</strong>: boolean. It is <code>TRUE</code> if the identifier is present in another location besides from abstract and methods, otherwise it is <code>FALSE</code>.</p></li>
+<li><p><strong>other_location</strong>: character. If <em>id_in_other_location</em> was <code>TRUE</code>, then the section(s) where the identifier was found in was written in lowercase, and if present in more than one section, it was separated with a comma.</p></li>
+<li><p><strong>paper_is_research_article</strong>: boolean. It is <code>TRUE</code> if the paper is a primary research article with the typical sections of a paper (abstract, introduction, methods, etc.). Otherwise <code>FALSE</code> (e.g., protocol paper, review, etc.)</p></li>
+</ul>
+</section>
+<section id="main-analyses-conducted" class="level4">
+<h4 class="anchored" data-anchor-id="main-analyses-conducted">Main analyses conducted:</h4>
 <ol type="1">
 <li><p>Types of ID detected</p></li>
 <li><p>Where were the IDs located (abstract section, methods section, etc.)?</p></li>
 <li><p>Were the papers research articles?</p></li>
 <li><p>Did the tools agree/disagree? (i.e.&nbsp;they all found the ID = agree).</p></li>
 <li><p>Description of each tool - type of ID and location</p></li>
+<li><p>False positives overview</p></li>
 <li><p>Additional observations</p></li>
 </ol>
 </section>
@@ -114,35 +134,113 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="types-of-id-detected">1) Types of ID detected</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"testing"</span>, <span class="st">"regset.csv"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed"</span>, <span class="st">"regset.csv"</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#general overview</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-false_positive       protocol            trn 
-            29              2            169 </code></pre>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type_group) <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type_group</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">trn</td>
+<td style="text-align: right;">169</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">false_positive</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">protocol</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>The three main groups of ID observed were <code>trial registration numbers (trn)</code>, <code>protocols</code>, and <code>false positives</code>.</p>
+<p>The three main groups of ID observed were <code>trial registration numbers (trn)</code>, <code>false positives</code> and <code>protocols</code>.</p>
 <section id="trns" class="level3">
 <h3 class="anchored" data-anchor-id="trns">TRNs</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trn <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>id_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctgov"</span>, <span class="st">"umin"</span>, <span class="st">"drks"</span>, <span class="st">"irct"</span>, <span class="st">"chictr"</span>, </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"isrctn"</span>,<span class="st">"ctri"</span>, <span class="st">"eudract"</span>, <span class="st">"actrn"</span>, <span class="st">"jrct"</span>, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"kct"</span>, <span class="st">"ntr"</span>, <span class="st">"pactr"</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trn<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-  actrn  chictr   ctgov    ctri    drks eudract    irct  isrctn    jrct     kct 
-      1       3     137       2       5       2       5       3       1       1 
-    ntr   pactr    umin 
-      1       1       7 </code></pre>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"trn"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ctgov</td>
+<td style="text-align: right;">137</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">umin</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">drks</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">irct</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">chictr</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">isrctn</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ctri</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eudract</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">actrn</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jrct</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">kct</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ntr</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pactr</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>The majority of the trial registry numbers were from the ctgov registry, followed by umin, dkrs and irct.</p>
-<p><img src="images/Picture%203.png" class="img-fluid" width="516"></p>
 <p><strong>note on the names</strong>:</p>
 <ul>
 <li><p>ctgov - US Clinical Trials Register</p></li>
@@ -163,13 +261,26 @@ false_positive       protocol            trn
 <section id="protocols" class="level3">
 <h3 class="anchored" data-anchor-id="protocols">Protocols</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>protocol <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>id_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"protocols_io"</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(protocol<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-protocols_io 
-           2 </code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"protocol"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type_group) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type_group</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">protocol</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>We only had two IDs that were included in links to specific protocols from protocols.io</p>
@@ -178,22 +289,49 @@ protocols_io
 <section id="false-positives" class="level3">
 <h3 class="anchored" data-anchor-id="false-positives">False positives</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>false_positive <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>id_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"catalogue_id"</span>, <span class="st">"datapoint"</span>, </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"drug_id"</span>, <span class="st">"funding_id"</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"medical_acronym"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"medical_device"</span>))</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(false_positive<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-   catalogue_id       datapoint         drug_id      funding_id medical_acronym 
-              3               5               6              13               1 
- medical_device 
-              1 </code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"false_positive"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">funding_id</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">drug_id</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">datapoint</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">catalogue_id</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">medical_acronym</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">medical_device</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>The main types of false positives we encounter were IDs corresponding to specific fundings or grants.</p>
-<p><img src="images/Picture%202.png" class="img-fluid" width="542"></p>
 </section>
 </section>
 <section id="where-were-the-ids-located" class="level2">
@@ -214,55 +352,138 @@ protocols_io
 </section>
 <section id="note" class="level3">
 <h3 class="anchored" data-anchor-id="note">NOTE:</h3>
-<p>The IDs analyzed could be in <strong>one or more locations</strong>, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool.</p>
+<p>The IDs analyzed could be in <strong>one or more locations</strong> of the paper, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool. Some tools searched for the IDs in a particular section of a paper, but if the ID was also present in another section of the same paper, it was also recorded on the datafile.</p>
 </section>
 </section>
 <section id="were-the-papers-research-articles" class="level2">
 <h2 class="anchored" data-anchor-id="were-the-papers-research-articles">3) Were the papers research articles?</h2>
 <p>Here we evaluated if the papers had the structure of a research article (abstract, introduction, methods, results, discussion, etc.).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Group data by PMCID</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PMCID) <span class="sc">%&gt;%</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">paper_is_research_article =</span> <span class="fu">any</span>(paper_is_research_article))</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a table with counts</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>count_table <span class="ot">&lt;-</span> result <span class="sc">%&gt;%</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(paper_is_research_article)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculating number of papers that were research articles</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Group data by PMCID</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PMCID) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">paper_is_research_article =</span> <span class="fu">any</span>(paper_is_research_article)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(paper_is_research_article) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(paper_is_research_article)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">paper_is_research_article</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">112</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p><img src="images/Screenshot%202023-12-06%20at%2010.14.29.png" class="img-fluid" width="251"></p>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ID count</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>paper_is_research_article)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-FALSE  TRUE 
-   41   159 </code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculating number of IDs coming from papers that were research articles.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(paper_is_research_article) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(paper_is_research_article)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">paper_is_research_article</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">159</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Out of 117 papers reviewed, 112 were research articles, and were associated with 159 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.</p>
-<p>It is important to know that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID (<a href="https://pubmed.ncbi.nlm.nih.gov/35237397/">click here to see</a>)</p>
+<p>It is important to note that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID (<a href="https://pubmed.ncbi.nlm.nih.gov/35237397/">click here to see article</a>)</p>
 </section>
 <section id="did-the-tools-agreedisagree" class="level2">
 <h2 class="anchored" data-anchor-id="did-the-tools-agreedisagree">4) Did the tools agree/disagree?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- no yes 
-146  54 </code></pre>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(tools_agree) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tools_agree)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">tools_agree</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">146</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they only agreed when the ID was a trn:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tools_agree, data<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     
-      false_positive protocol trn
-  no              29        2 115
-  yes              0        0  54</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(tools_agree, id_type_group) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tools_agree)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">tools_agree</th>
+<th style="text-align: left;">id_type_group</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">trn</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">false_positive</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">protocol</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">trn</td>
+<td style="text-align: right;">115</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -271,110 +492,501 @@ FALSE  TRUE
 <section id="tool-1-sciscore" class="level3">
 <h3 class="anchored" data-anchor-id="tool-1-sciscore">Tool 1: sciscore</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of sciscore_hit = TRUE</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sciscore <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>sciscore_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-protocol      trn 
-       2       55 </code></pre>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of sciscore_hit = TRUE</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sciscore <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>sciscore_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>sciscore <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type_group, id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type_group</th>
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">protocol</td>
+<td style="text-align: left;">protocols_io</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">trn</td>
+<td style="text-align: left;">ctgov</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trn</td>
+<td style="text-align: left;">eudract</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sciscore<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-       ctgov      eudract protocols_io 
-          54            1            2 </code></pre>
 </div>
-</div>
-<p><code>sciscore</code> detected 55 trial registry number IDs and 2 protocol IDs. The trn were from ctgov and eudract.</p>
-<p>Additionally, <code>sciscore</code> detected the IDs in more than 2 locations: abstract (24 cases), methods (55) and other location (9).</p>
+<p><code>Sciscore</code> detected 55 trial registry number IDs and 2 protocol IDs. The trn were only from ctgov and eudract registries.</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (24 cases), methods (55) and other location (8):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Although the majority of IDs were in both methods and another location, there were 2 cases where the IDs were found in the introduction and not in the methods section: <code>NCT03349060</code> and <code>NCT03575871</code>.</p>
-<p>These two IDs were used as a reference in the same paper (<a href="https://pubmed.ncbi.nlm.nih.gov/34406366/">click here to see</a>).</p>
+<p><code>Sciscore</code> is designed to search the IDs in a specific section of the paper (methods). Therefore, it is important to analyze if all the IDs found by this tool were present in this specific location:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sciscore <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sciscore_hit)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sciscore <span class="sc">%&gt;%</span> <span class="fu">count</span>(id_in_abstract, id_in_methods, id_in_other_location)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  id_in_abstract id_in_methods id_in_other_location     n
+  &lt;lgl&gt;          &lt;lgl&gt;         &lt;lgl&gt;                &lt;int&gt;
+1 FALSE          FALSE         TRUE                     2
+2 FALSE          TRUE          FALSE                   28
+3 FALSE          TRUE          TRUE                     3
+4 TRUE           TRUE          FALSE                   21
+5 TRUE           TRUE          TRUE                     3</code></pre>
+</div>
+</div>
+<p>Although the majority of IDs were in both methods and another other location of the paper, there were 2 cases where the IDs were found in the introduction and not in the methods section: <code>NCT03349060</code> and <code>NCT03575871</code>.</p>
+<p>These two IDs were used as a reference in the same paper (<a href="https://pubmed.ncbi.nlm.nih.gov/34406366/">click here to see research article</a>).</p>
 </section>
 <section id="tool-2-trialidentifier" class="level3">
 <h3 class="anchored" data-anchor-id="tool-2-trialidentifier">Tool 2: trialidentifier</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-trn 
-139 </code></pre>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type_group, id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type_group</th>
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">trn</td>
+<td style="text-align: left;">ctgov</td>
+<td style="text-align: right;">136</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">trn</td>
+<td style="text-align: left;">isrctn</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trialidentifier<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- ctgov isrctn 
-   136      3 </code></pre>
 </div>
-</div>
-<p><code>trialidentifier</code> identified 139 trial registry number IDs, from both ctgov and isrctn.</p>
-<p>Additionally, <code>trialidentifier</code> detected the IDs in more than 2 locations: abstract (35 cases), methods (63) and other location (81).</p>
+<p><code>trialidentifier</code> identified 139 trial registry number IDs, 136 from ctgov and 3 from isrctn.</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (35 cases), methods (65) and other location (80):</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="tool-3-ctregistries" class="level3">
 <h3 class="anchored" data-anchor-id="tool-3-ctregistries">Tool 3: ctregistries</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of ctregistries_hit = TRUE</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>ctregistries_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ctregistries<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-false_positive            trn 
-            29            166 </code></pre>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of ctregistries_hit = TRUE</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>ctregistries_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type_group) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type_group</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">trn</td>
+<td style="text-align: right;">166</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">false_positive</td>
+<td style="text-align: right;">29</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"trn"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ctgov</td>
+<td style="text-align: right;">134</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">umin</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">drks</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">irct</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">chictr</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">isrctn</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ctri</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eudract</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">actrn</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jrct</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">kct</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ntr</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pactr</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>Out of the 4 tools, <code>ctregistries</code> was the one who selected the 29 cases of false positives. However, it also detected 166 trial registry number IDs.</p>
-<p>Finally, <code>ctregistries</code> detected the IDs in more than 2 locations: abstract (43 cases), methods (89), other location (113).</p>
+<p>Out of the 4 tools, <code>ctregistries</code> was the one who selected the 29 cases of false positives, and the majority (13 cases) were funding ids:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"false_positive"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">funding_id</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">drug_id</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">datapoint</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">catalogue_id</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">medical_acronym</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">medical_device</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>However, it also detected 166 trial registry number IDs, and the majority (134) were ctgov registry ids:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ctregistries <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"trn"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ctgov</td>
+<td style="text-align: right;">134</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">umin</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">drks</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">irct</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">chictr</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">isrctn</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ctri</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eudract</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">actrn</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jrct</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">kct</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ntr</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pactr</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Finally, the IDs were present in more than 2 locations on the paper: abstract (43 cases), methods (91), other location (112):</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="tool-4-nct" class="level3">
 <h3 class="anchored" data-anchor-id="tool-4-nct">Tool 4: nct</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of nct_hit = TRUE</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>nct <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>nct_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-trn 
-137 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nct<span class="sc">$</span>id_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-ctgov 
-  137 </code></pre>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of nct_hit = TRUE</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>nct <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>nct_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>nct <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type_group, id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type_group</th>
+<th style="text-align: left;">id_type</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">trn</td>
+<td style="text-align: left;">ctgov</td>
+<td style="text-align: right;">137</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p><code>nct</code> identified 137 trial registry number IDs, all from ctgov.</p>
-<p>Additionally, <code>nct</code> detected the IDs in more than 3 locations: abstract (34 cases), methods (61), other location (81).</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (34 cases), methods (63), other location (80):</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
+<section id="comparative-analysis-of-the-4-tools" class="level3">
+<h3 class="anchored" data-anchor-id="comparative-analysis-of-the-4-tools">Comparative analysis of the 4 tools</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"trn"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ctregistries_hit, sciscore_hit, trialidentifier_hit, nct_hit) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">ctregistries_hit</th>
+<th style="text-align: left;">sciscore_hit</th>
+<th style="text-align: left;">trialidentifier_hit</th>
+<th style="text-align: left;">nct_hit</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">54</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Based on this table, we can see that:</p>
+<ul>
+<li><p><strong>ctregistries</strong> detected 28 trial registration ids that no other tool found, and only missed 3 ids that were detected by both trialidentifier and nct.</p></li>
+<li><p><strong>sciscore</strong> detected 54 ids that all the other tools also found, and it found only one extra id that was also detected by ctregistries. Overall the tool missed 114 trial registration ids.</p></li>
+<li><p><strong>trialidentifier</strong> seem to agree in the majority of cases with nct, but it found 3 additional ids. Overall the tool missed 30 trial registration ids.</p></li>
+<li><p><strong>nct</strong> found only one additional ids compared to trial identifier. Overall the tool missed 32 trial registration ids.</p></li>
+</ul>
+</section>
+</section>
+<section id="false-positives-overview" class="level2">
+<h2 class="anchored" data-anchor-id="false-positives-overview">6) False positives overview</h2>
+<p>As reported before, the 29 false positives were detected by ctregistries. The locations of these false positive were in the methods section (5 cases) and other location (24 cases):</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Out of the 24 false positives that were found in another location, 13 were found in the acknowledgments section and consisted only of funding IDs, 10 were found in the results section, from which 6 were drug ids and 4 were datapoints. Finally, one false positive was found in the introduction section, and it consisted of a medical acronym.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>false_positive <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(other_location)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_type) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(other_location) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_type</th>
+<th style="text-align: left;">other_location</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">funding_id</td>
+<td style="text-align: left;">acknowledgements</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">drug_id</td>
+<td style="text-align: left;">results</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">datapoint</td>
+<td style="text-align: left;">results</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">medical_acronym</td>
+<td style="text-align: left;">introduction</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 <section id="additional-observations" class="level2">
-<h2 class="anchored" data-anchor-id="additional-observations">6) Additional observations</h2>
+<h2 class="anchored" data-anchor-id="additional-observations">7) Additional observations</h2>
 <section id="trn-from-the-study-itself-or-as-a-reference-to-other-studies" class="level3">
 <h3 class="anchored" data-anchor-id="trn-from-the-study-itself-or-as-a-reference-to-other-studies">TRN from the study itself or as a reference to other studies</h3>
 <p>Some papers analyzed use specifically the ctgov trial registry number as a way to cite other studies in their introduction or discussion. In this analysis, 71 of 137 ctgov trn’s were used as reference.</p>
@@ -392,14 +1004,22 @@ ctgov
 </section>
 <section id="negative-control-check-summary" class="level3">
 <h3 class="anchored" data-anchor-id="negative-control-check-summary">Negative-control check summary</h3>
-<p>Overall, out of the 50 papers reviewed, there where only three papers flagged for a possible registration number:</p>
+<p>An additional analysis was conducted on 50 research articles where a hit was not found by any of the tools. These papers were grouped in a dataset called <code>nc_man_check</code>, which contained the following variables/columns:</p>
+<ul>
+<li><p><strong>PMCID</strong>: character. PMC identifier of the paper where no registration ID was found.</p></li>
+<li><p><strong>paper_url</strong>: link to the PubMed website where the paper is available.</p></li>
+<li><p><strong>reg_id_in_paper</strong>: nominal. <code>TRUE</code> if paper contains one or more registration ids, <code>FALSE</code> if it does not contain any registration id, and <code>Unsure</code> if it contains an suspected registration id.</p></li>
+<li><p><strong>reg_id</strong>: character. If reg_id_in_paper is TRUE or Unsure, this column registers the id or suspected id.</p></li>
+<li><p><strong>comments</strong>: character. Brief observation on the flagged id.</p></li>
+</ul>
+<p>Overall, out of the 50 papers reviewed, there were only three papers flagged for a possible registration number:</p>
 <ol type="1">
 <li><p>Number ID found for the Institutional Animal Care and Use Committee (IACUC): <code>2014092403</code>. This could be a protocol ID.</p></li>
 <li><p>Number ID from www.researchregistry.com: <code>researchregistry7399</code></p></li>
 <li><p>Number ID for Prospero Registry: <code>CRD42021225699</code></p></li>
 </ol>
 <p>There were also Ethical ID numbers present in 7 cases. These types of ID were not detected by the tools, but one could question if those are considered as a form of registration or not.</p>
-<p>Finally, as mention before, there were 6 cases of funding IDs that were present on some of these papers. The IDs were different as the ones that were being detected in the main analysis as funding_ids.</p>
+<p>Finally, as mentioned before, there were 6 cases of funding IDs that were present on some of these papers. The IDs were different as the ones that were being detected in the main analysis as funding_ids.</p>
 </section>
 </section>
 
