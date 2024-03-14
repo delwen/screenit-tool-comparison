@@ -5,7 +5,7 @@ library(readr)
 library(dplyr)
 library(here)
 
-data <- read_csv(here("data", "negative_control.csv"))
+data <- read_csv(here("data", "raw", "negative_control.csv"))
 
 # Add columns for variables to enter in manual check
 
@@ -25,4 +25,4 @@ data_man_check <- data |>
     comments = " "
   )
 
-write_csv(data_man_check, here("data", "nc_man_check.csv"))
+write_csv(data_man_check, here("data", "raw", "nc_extraction_blank.csv"))

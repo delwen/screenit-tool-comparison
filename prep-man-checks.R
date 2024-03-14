@@ -5,7 +5,7 @@ library(dplyr)
 library(here)
 
 # Load the data arranged by found identifier
-data <- read_csv(here("data", "all_data_by_id_updated.csv"))
+data <- read_csv(here("data", "raw", "all_data_by_id_updated.csv"))
 
 # Each identifier is repeated for each time it was detected, therefore deduplicate
 
@@ -60,7 +60,7 @@ data_man_check <- data_man_check |>
       .default = "no")
     )
 
-write_csv(data_man_check, here("data", "reg_set_man_check.csv"))
+write_csv(data_man_check, here("data", "raw", "regset_extraction_blank.csv"))
 
 # Update: initially missed some Identifier-PMCID combinations, so we re-extracted with all preserved
 # This led to 3 additional rows
