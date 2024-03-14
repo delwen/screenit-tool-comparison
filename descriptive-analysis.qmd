@@ -261,7 +261,7 @@ sciscore %>%
   kable()
 ```
 
-`sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were only from ctgov and eudract registries.
+`Sciscore` detected 55 trial registry number IDs and 2 protocol IDs. The trn were only from ctgov and eudract registries.
 
 The IDs were present in more than 2 locations on the paper: abstract (24 cases), methods (55) and other location (8):
 
@@ -287,7 +287,15 @@ bar_midpoints <- barplot(count_true, plot = FALSE)
 text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
-Although the majority of IDs were in both methods and another location, there were 2 cases where the IDs were found in the introduction and not in the methods section: `NCT03349060` and `NCT03575871`.
+`Sciscore` is designed to search the IDs in a specific section of the paper (methods). Therefore, it is important to analyze if all the IDs found by this tool were present in this specific location:
+
+```{r message = FALSE, warning = FALSE}
+
+sciscore <- data %>% filter(sciscore_hit)
+sciscore %>% count(id_in_abstract, id_in_methods, id_in_other_location)
+```
+
+Although the majority of IDs were in both methods and another other location of the paper, there were 2 cases where the IDs were found in the introduction and not in the methods section: `NCT03349060` and `NCT03575871`.
 
 These two IDs were used as a reference in the same paper ([click here to see research article](https://pubmed.ncbi.nlm.nih.gov/34406366/)).
 
