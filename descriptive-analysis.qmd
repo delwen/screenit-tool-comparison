@@ -277,7 +277,7 @@ count_true <- colSums(location_analysis1)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis1), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by sciscore", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 5))
 
 #calculate midpoints of bars
@@ -291,13 +291,36 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 
 ```{r message = FALSE, warning = FALSE}
 
-sciscore <- data %>% filter(sciscore_hit)
-sciscore %>% count(id_in_abstract, id_in_methods, id_in_other_location)
+sciscore2 <- data %>% filter(sciscore_hit)
+sciscore2 %>% count(id_in_abstract, id_in_methods, id_in_other_location)
 ```
 
 Although the majority of IDs were in both methods and another other location of the paper, there were 2 cases where the IDs were found in the introduction and not in the methods section: `NCT03349060` and `NCT03575871`.
 
 These two IDs were used as a reference in the same paper ([click here to see research article](https://pubmed.ncbi.nlm.nih.gov/34406366/)).
+
+Additionally, we compared the total number of ctgov IDs present in the methods section, to the ctgovs IDs present in methods section were sciscore_hit was TRUE, to see if the tool missed any of these IDs in this particular section:
+
+```{r message = FALSE, warning = FALSE}
+
+#dataset with only methods section = TRUE
+methods_ids <- subset(data, data$id_in_methods %in% c("TRUE"))
+
+#table ctgov in methods
+methods_ids %>% 
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
+
+#table sciscore - ctgov in methods
+methods_ids %>% 
+  count(id_type, sciscore_hit) %>%
+  arrange(desc(n)) %>%
+  kable()
+
+```
+
+Out of 63 ctgov IDs present in the methods section, `Sciscore` found only 52 ctgov IDs in the method section.
 
 ### Tool 2: trialidentifier
 
@@ -326,7 +349,7 @@ count_true <- colSums(location_analysis2)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis2), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by trialidentifier", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 10))
 
 #calculate midpoints of bars
@@ -390,7 +413,7 @@ count_true <- colSums(location_analysis3)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis3), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by ctregistries", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 10))
 
 #calculate midpoints of bars
@@ -428,7 +451,7 @@ count_true <- colSums(location_analysis4)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis4), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by nct", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 10))
 
 #calculate midpoints of bars
