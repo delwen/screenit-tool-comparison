@@ -96,15 +96,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This document presents the descriptive results from the analysis of 4 different tools (<code>sciscore</code>, <code>trialidentifier</code>, <code>ctregistries</code> and <code>nct</code>). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).</p>
+<p>This document presents the descriptive results from the analysis of 4 different tools (<code>sciscore</code>, <code>TRNscreener</code>, <code>ctregistries</code> and <code>nct</code>). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).</p>
 <section id="data-description" class="level4">
 <h4 class="anchored" data-anchor-id="data-description">Data description</h4>
-<p>This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed. These IDs were grouped in a data file named <code>regset.csv</code>, with the following variables/columns:</p>
+<p>This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 199 IDs were analyzed. These IDs were grouped in a data file named <code>regset.csv</code>, with the following variables/columns:</p>
 <ul>
 <li><p><strong>Identifier</strong>: character. It contains the ID detected. Example: <code>NCT03192410</code>.</p></li>
 <li><p><strong>PMCID</strong>: character. PMC identifier of the paper where the ID was found.</p></li>
 <li><p><strong>sciscore_hit:</strong> boolean. It is <code>TRUE</code> if the tool <strong>sciscore</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
-<li><p><strong>trialidentifier_hit:</strong> boolean. It is <code>TRUE</code> if the tool <strong>trialidentifier</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
+<li><p><strong>trnscreener_hit:</strong> boolean. It is <code>TRUE</code> if the tool <strong>TRNscreener</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
 <li><p><strong>ctregistries_hit:</strong> boolean. It is <code>TRUE</code> if the tool <strong>ctregistries</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
 <li><p><strong>nct_hit</strong>: boolean. It is <code>TRUE</code> if the tool <strong>nct</strong> detected the identifier. Otherwise <code>FALSE</code>.</p></li>
 <li><p><strong>paper_url</strong>: link to the PubMed website where the paper is available.</p></li>
@@ -152,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">trn</td>
-<td style="text-align: right;">169</td>
+<td style="text-align: right;">168</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">false_positive</td>
@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ctgov</td>
-<td style="text-align: right;">137</td>
+<td style="text-align: right;">136</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">umin</td>
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>What were the other locations?</strong> - discussion (53 cases), introduction (23 cases), acknowledgements (16 cases ), results (11 cases), etc.</p>
+<p><strong>What were the other locations?</strong> - discussion (53 cases), introduction (23 cases), acknowledgements (16 cases ), results (12 cases), etc.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="note" class="level3">
 <h3 class="anchored" data-anchor-id="note">NOTE:</h3>
-<p>The IDs analyzed could be in <strong>one or more locations</strong> of the paper, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool. Some tools searched for the IDs in a particular section of a paper, but if the ID was also present in another section of the same paper, it was also recorded on the datafile.</p>
+<p>The IDs analyzed could be in <strong>one or more locations</strong> of the paper, that is why there are more cases out of a total of 199 IDs. This is important to remember for a following section that analyzes the location of the ID by tool. Some tools searched for the IDs in a particular section of a paper, but if the ID was also present in another section of the same paper, it was also recorded on the datafile.</p>
 </section>
 </section>
 <section id="were-the-papers-research-articles" class="level2">
@@ -405,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">159</td>
+<td style="text-align: right;">158</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">FALSE</td>
@@ -415,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p>Out of 117 papers reviewed, 112 were research articles, and were associated with 159 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.</p>
+<p>Out of 117 papers reviewed, 112 were research articles, and were associated with 158 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.</p>
 <p>It is important to note that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID (<a href="https://pubmed.ncbi.nlm.nih.gov/35237397/">click here to see article</a>)</p>
 </section>
 <section id="did-the-tools-agreedisagree" class="level2">
@@ -440,13 +440,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">no</td>
-<td style="text-align: right;">146</td>
+<td style="text-align: right;">145</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they only agreed when the ID was a trn:</p>
+<p>Overall, the tools agreed in 54 cases, and disagreed in 145. Additionally, they only agreed when the ID was a trn:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(tools_agree, id_type_group) <span class="sc">%&gt;%</span></span>
@@ -480,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">no</td>
 <td style="text-align: left;">trn</td>
-<td style="text-align: right;">115</td>
+<td style="text-align: right;">114</td>
 </tr>
 </tbody>
 </table>
@@ -572,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ctgov</td>
-<td style="text-align: right;">63</td>
+<td style="text-align: right;">61</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">irct</td>
@@ -660,7 +660,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">ctgov</td>
 <td style="text-align: left;">FALSE</td>
-<td style="text-align: right;">11</td>
+<td style="text-align: right;">9</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">irct</td>
@@ -748,13 +748,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Out of 63 ctgov IDs present in the methods section, <code>Sciscore</code> found only 52 ctgov IDs in the method section.</p>
 </section>
-<section id="tool-2-trialidentifier" class="level3">
-<h3 class="anchored" data-anchor-id="tool-2-trialidentifier">Tool 2: trialidentifier</h3>
+<section id="tool-2-trnscreener" class="level3">
+<h3 class="anchored" data-anchor-id="tool-2-trnscreener">Tool 2: TRNscreener</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trialidentifier_hit = TRUE</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trialidentifier_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subset of trnscreener_hit = TRUE</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>trnscreener_hit <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, data<span class="sc">$</span>trnscreener_hit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>))</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>trialidentifier <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>trnscreener_hit <span class="sc">%&gt;%</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id_type_group, id_type) <span class="sc">%&gt;%</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -781,8 +781,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p><code>trialidentifier</code> identified 139 trial registry number IDs, 136 from ctgov and 3 from isrctn.</p>
-<p>The IDs were present in more than 2 locations on the paper: abstract (35 cases), methods (65) and other location (80):</p>
+<p><code>TRNscreener</code> identified 139 trial registry number IDs, 136 from ctgov and 3 from isrctn.</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (35 cases), methods (64) and other location (82):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
@@ -1005,7 +1005,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p>Finally, the IDs were present in more than 2 locations on the paper: abstract (43 cases), methods (91), other location (112):</p>
+<p>Finally, the IDs were present in more than 2 locations on the paper: abstract (43 cases), methods (91), other location (113):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
@@ -1035,14 +1035,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">trn</td>
 <td style="text-align: left;">ctgov</td>
-<td style="text-align: right;">137</td>
+<td style="text-align: right;">136</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><code>nct</code> identified 137 trial registry number IDs, all from ctgov.</p>
-<p>The IDs were present in more than 2 locations on the paper: abstract (34 cases), methods (63), other location (80):</p>
+<p><code>nct</code> identified 136 trial registry number IDs, all from ctgov.</p>
+<p>The IDs were present in more than 2 locations on the paper: abstract (34 cases), methods (61), other location (82):</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="descriptive-analysis_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
@@ -1054,7 +1054,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id_type_group <span class="sc">==</span> <span class="st">"trn"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ctregistries_hit, sciscore_hit, trialidentifier_hit, nct_hit) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ctregistries_hit, sciscore_hit, trnscreener_hit, nct_hit) <span class="sc">%&gt;%</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -1062,7 +1062,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="header">
 <th style="text-align: left;">ctregistries_hit</th>
 <th style="text-align: left;">sciscore_hit</th>
-<th style="text-align: left;">trialidentifier_hit</th>
+<th style="text-align: left;">trnscreener_hit</th>
 <th style="text-align: left;">nct_hit</th>
 <th style="text-align: right;">n</th>
 </tr>
@@ -1073,7 +1073,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">TRUE</td>
@@ -1085,32 +1085,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">3</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">79</td>
+<td style="text-align: right;">80</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
@@ -1123,9 +1116,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Based on this table, we can see that:</p>
 <ul>
-<li><p><strong>ctregistries</strong> detected 28 trial registration ids that no other tool found, and only missed 3 ids that were detected by both trialidentifier and nct.</p></li>
+<li><p><strong>ctregistries</strong> detected 28 trial registration ids that no other tool found, and only missed 3 ids that were detected by both TRNscreener and nct.</p></li>
 <li><p><strong>sciscore</strong> detected 54 ids that all the other tools also found, and it found only one extra id that was also detected by ctregistries. Overall the tool missed 114 trial registration ids.</p></li>
-<li><p><strong>trialidentifier</strong> seem to agree in the majority of cases with nct, but it found 3 additional ids. Overall the tool missed 30 trial registration ids.</p></li>
+<li><p><strong>TRNscreener</strong> seem to agree in the majority of cases with nct, but it found 3 additional ids. Overall the tool missed 30 trial registration ids.</p></li>
 <li><p><strong>nct</strong> found only one additional ids compared to trial identifier. Overall the tool missed 32 trial registration ids.</p></li>
 </ul>
 </section>
@@ -1195,7 +1188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="trn-with-missing-digits" class="level3">
 <h3 class="anchored" data-anchor-id="trn-with-missing-digits">TRN with missing digits</h3>
-<p>There were two cases of ctgov IDs reported with a missing digit, but the tools <code>trialidentifier</code> and <code>nct</code> were still able to identify them.</p>
+<p>There were two cases of ctgov IDs reported with a missing digit, but the tools <code>TRNscreener</code> and <code>nct</code> were still able to identify them.</p>
 <p><img src="images/Screenshot%202023-12-06%20at%2009.28.29.png" class="img-fluid"></p>
 </section>
 <section id="negative-control-check-summary" class="level3">
