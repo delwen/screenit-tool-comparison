@@ -6,11 +6,11 @@ editor: visual
 
 ## Introduction
 
-This document presents the descriptive results from the analysis of 4 different tools (`sciscore`, `trialidentifier`, `ctregistries` and `nct`). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).
+This document presents the descriptive results from the analysis of 4 different tools (`sciscore`, `TRNscreener`, `ctregistries` and `nct`). The aim of these tools is to screen papers for one or more registration IDs (protocol, trial registry, etc).
 
 #### Data description
 
-This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 200 IDs were analyzed. These IDs were grouped in a data file named `regset.csv`, with the following variables/columns:
+This analysis was limited to papers (n = 117) where a hit was found by one or more tools. Overall, 199 IDs were analyzed. These IDs were grouped in a data file named `regset.csv`, with the following variables/columns:
 
 -   **Identifier**: character. It contains the ID detected. Example: `NCT03192410`.
 
@@ -18,7 +18,7 @@ This analysis was limited to papers (n = 117) where a hit was found by one or mo
 
 -   **sciscore_hit:** boolean. It is `TRUE` if the tool **sciscore** detected the identifier. Otherwise `FALSE`.
 
--   **trialidentifier_hit:** boolean. It is `TRUE` if the tool **trialidentifier** detected the identifier. Otherwise `FALSE`.
+-   **trnscreener_hit:** boolean. It is `TRUE` if the tool **TRNscreener** detected the identifier. Otherwise `FALSE`.
 
 -   **ctregistries_hit:** boolean. It is `TRUE` if the tool **ctregistries** detected the identifier. Otherwise `FALSE`.
 
@@ -178,7 +178,7 @@ bar_midpoints <- barplot(count_true, plot = FALSE)
 text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex = 0.8)
 ```
 
-**What were the other locations?** - discussion (53 cases), introduction (23 cases), acknowledgements (16 cases ), results (11 cases), etc.
+**What were the other locations?** - discussion (53 cases), introduction (23 cases), acknowledgements (16 cases ), results (12 cases), etc.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -199,7 +199,7 @@ wordcloud(words = other_location$locations,
 
 ### NOTE:
 
-The IDs analyzed could be in **one or more locations** of the paper, that is why there are more cases out of a total of 200 IDs. This is important to remember for a following section that analyzes the location of the ID by tool. Some tools searched for the IDs in a particular section of a paper, but if the ID was also present in another section of the same paper, it was also recorded on the datafile.
+The IDs analyzed could be in **one or more locations** of the paper, that is why there are more cases out of a total of 199 IDs. This is important to remember for a following section that analyzes the location of the ID by tool. Some tools searched for the IDs in a particular section of a paper, but if the ID was also present in another section of the same paper, it was also recorded on the datafile.
 
 ## 3) Were the papers research articles?
 
@@ -224,7 +224,7 @@ data %>%
   kable()
 ```
 
-Out of 117 papers reviewed, 112 were research articles, and were associated with 159 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.
+Out of 117 papers reviewed, 112 were research articles, and were associated with 158 IDs. The remaining 5 articles in which 41 IDs were found appeared to be either protocol papers, review of findings and an article that did not present a methods section.
 
 It is important to note that 33 out of the 41 IDs came from the same non-research article, which conducted a review and cited studies using their ctgov ID ([click here to see article](https://pubmed.ncbi.nlm.nih.gov/35237397/))
 
@@ -238,7 +238,7 @@ data %>%
   kable()
 ```
 
-Overall, the tools agreed in 54 cases, and disagreed in 146. Additionally, they only agreed when the ID was a trn:
+Overall, the tools agreed in 54 cases, and disagreed in 145. Additionally, they only agreed when the ID was a trn:
 
 ```{r message = FALSE, warning = FALSE}
 
@@ -277,7 +277,7 @@ count_true <- colSums(location_analysis1)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis1), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by sciscore", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 5))
 
 #calculate midpoints of bars
@@ -291,33 +291,56 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 
 ```{r message = FALSE, warning = FALSE}
 
-sciscore <- data %>% filter(sciscore_hit)
-sciscore %>% count(id_in_abstract, id_in_methods, id_in_other_location)
+sciscore2 <- data %>% filter(sciscore_hit)
+sciscore2 %>% count(id_in_abstract, id_in_methods, id_in_other_location)
 ```
 
 Although the majority of IDs were in both methods and another other location of the paper, there were 2 cases where the IDs were found in the introduction and not in the methods section: `NCT03349060` and `NCT03575871`.
 
 These two IDs were used as a reference in the same paper ([click here to see research article](https://pubmed.ncbi.nlm.nih.gov/34406366/)).
 
-### Tool 2: trialidentifier
+Additionally, we compared the total number of ctgov IDs present in the methods section, to the ctgovs IDs present in methods section were sciscore_hit was TRUE, to see if the tool missed any of these IDs in this particular section:
 
 ```{r message = FALSE, warning = FALSE}
-#subset of trialidentifier_hit = TRUE
-trialidentifier <- subset(data, data$trialidentifier_hit %in% c("TRUE"))
 
-trialidentifier %>%
+#dataset with only methods section = TRUE
+methods_ids <- subset(data, data$id_in_methods %in% c("TRUE"))
+
+#table ctgov in methods
+methods_ids %>% 
+  count(id_type) %>%
+  arrange(desc(n)) %>%
+  kable()
+
+#table sciscore - ctgov in methods
+methods_ids %>% 
+  count(id_type, sciscore_hit) %>%
+  arrange(desc(n)) %>%
+  kable()
+
+```
+
+Out of 63 ctgov IDs present in the methods section, `Sciscore` found only 52 ctgov IDs in the method section.
+
+### Tool 2: TRNscreener
+
+```{r message = FALSE, warning = FALSE}
+#subset of trnscreener_hit = TRUE
+trnscreener_hit <- subset(data, data$trnscreener_hit %in% c("TRUE"))
+
+trnscreener_hit %>%
   count(id_type_group, id_type) %>%
   kable()
 ```
 
-`trialidentifier` identified 139 trial registry number IDs, 136 from ctgov and 3 from isrctn.
+`TRNscreener` identified 139 trial registry number IDs, 136 from ctgov and 3 from isrctn.
 
-The IDs were present in more than 2 locations on the paper: abstract (35 cases), methods (65) and other location (80):
+The IDs were present in more than 2 locations on the paper: abstract (35 cases), methods (64) and other location (82):
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
 # Select only the three columns of interest
-location_analysis2 <- trialidentifier[, c("id_in_abstract", "id_in_methods", 
+location_analysis2 <- trnscreener_hit[, c("id_in_abstract", "id_in_methods", 
                                  "id_in_other_location")]
 
 # Count TRUE values for each selected variable
@@ -326,7 +349,7 @@ count_true <- colSums(location_analysis2)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis2), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by trialidentifier", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 10))
 
 #calculate midpoints of bars
@@ -376,7 +399,7 @@ ctregistries %>%
   kable()
 ```
 
-Finally, the IDs were present in more than 2 locations on the paper: abstract (43 cases), methods (91), other location (112):
+Finally, the IDs were present in more than 2 locations on the paper: abstract (43 cases), methods (91), other location (113):
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -390,7 +413,7 @@ count_true <- colSums(location_analysis3)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis3), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by ctregistries", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 10))
 
 #calculate midpoints of bars
@@ -412,9 +435,9 @@ nct %>%
   kable()
 ```
 
-`nct` identified 137 trial registry number IDs, all from ctgov.
+`nct` identified 136 trial registry number IDs, all from ctgov.
 
-The IDs were present in more than 2 locations on the paper: abstract (34 cases), methods (63), other location (80):
+The IDs were present in more than 2 locations on the paper: abstract (34 cases), methods (61), other location (82):
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -428,7 +451,7 @@ count_true <- colSums(location_analysis4)
 #create barplot
 barplot(count_true, names.arg = colnames(location_analysis4), 
         col = custom_palette(length(count_true)), 
-        main = "Location of IDs detected by nct", ylab = "Count",
+        main = "Location of IDs", ylab = "Count",
         ylim = c(0, max(count_true) + 10))
 
 #calculate midpoints of bars
@@ -444,18 +467,18 @@ text(bar_midpoints, count_true, labels = count_true, pos = 3, col = "black", cex
 
 data %>%
   filter(id_type_group == "trn") %>% 
-  count(ctregistries_hit, sciscore_hit, trialidentifier_hit, nct_hit) %>%
+  count(ctregistries_hit, sciscore_hit, trnscreener_hit, nct_hit) %>%
   kable()
 
 ```
 
 Based on this table, we can see that:
 
--   **ctregistries** detected 28 trial registration ids that no other tool found, and only missed 3 ids that were detected by both trialidentifier and nct.
+-   **ctregistries** detected 28 trial registration ids that no other tool found, and only missed 2 ids that were detected by both TRNscreener and nct.
 
--   **sciscore** detected 54 ids that all the other tools also found, and it found only one extra id that was also detected by ctregistries. Overall the tool missed 114 trial registration ids.
+-   **sciscore** detected 54 ids that all the other tools also found, and it found only one extra id that was also detected by ctregistries. Overall the tool missed 113 trial registration ids.
 
--   **trialidentifier** seem to agree in the majority of cases with nct, but it found 3 additional ids. Overall the tool missed 30 trial registration ids.
+-   **TRNscreener** seem to agree in the majority of cases with nct, but it found 3 additional ids. Overall the tool missed 29 trial registration ids.
 
 -   **nct** found only one additional ids compared to trial identifier. Overall the tool missed 32 trial registration ids.
 
@@ -517,7 +540,7 @@ Funding IDs that were present in the negative control check, and therefore not d
 
 ### TRN with missing digits
 
-There were two cases of ctgov IDs reported with a missing digit, but the tools `trialidentifier` and `nct` were still able to identify them.
+There were two cases of ctgov IDs reported with a missing digit, but the tools `TRNscreener` and `nct` were still able to identify them.
 
 ![](images/Screenshot%202023-12-06%20at%2009.28.29.png)
 

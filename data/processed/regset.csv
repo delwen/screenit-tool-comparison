@@ -1,4 +1,4 @@
-Identifier,PMCID,sciscore_hit,trialidentifier_hit,ctregistries_hit,nct_hit,paper_url,id_type_group,id_type,id_in_abstract,id_in_methods,id_in_other_location,other_location,paper_is_research_article,comments_reviewer1,comments_reviewer2,tools_agree
+Identifier,PMCID,sciscore_hit,trnscreener_hit,ctregistries_hit,nct_hit,paper_url,id_type_group,id_type,id_in_abstract,id_in_methods,id_in_other_location,other_location,paper_is_research_article,comments_reviewer1,comments_reviewer2,tools_agree
 IRCT20190222042803N1,PMC8236676,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8236676/,trn,irct,FALSE,TRUE,TRUE,"acknowledgements, footnotes",TRUE,,,no
 NCT03192410,PMC8246616,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8246616/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
 UMIN000036097,PMC8381433,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8381433/,trn,umin,TRUE,TRUE,FALSE,,TRUE,,,no
@@ -7,7 +7,7 @@ NCT01923051,PMC8089082,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC80
 201603250060,PMC8153979,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8153979/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,"Methods called ""experimental section""","consider as research article as ""experimental section"" - BUT add comment ""methods called ""experimental section""",no
 201803040003,PMC8053869,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8053869/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
 NCT03442777,PMC8359283,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8359283/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,yes
-NCT0002523,PMC8798459,FALSE,TRUE,FALSE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8798459/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,digit missing in NCT number: number was reported like this on paper,digit missing in NCT number,no
+NCT0002523,PMC8798459,FALSE,TRUE,FALSE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8798459/,trn,ctgov,FALSE,FALSE,TRUE,results,TRUE,digit missing in NCT number: number was reported like this on paper. Location changed to results according to review in april 2024,digit missing in NCT number,no
 201803020002,PMC8610312,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8610312/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
 NCT04126252,PMC8847802,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8847802/,trn,ctgov,FALSE,FALSE,TRUE,ethics_statement,TRUE,,,no
 UMIN000029132,PMC8265923,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8265923/,trn,umin,TRUE,FALSE,FALSE,,TRUE,,,no
@@ -139,7 +139,7 @@ NCT01345253,PMC8256836,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC82
 NCT01484496,PMC8256836,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8256836/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
 NCT01597622,PMC8256836,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8256836/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
 201507720006,PMC8359274,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8359274/,false_positive,funding_id,FALSE,FALSE,TRUE,acknowledgements,TRUE,,,no
-NCT00418041,PMC8006606,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8006606/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT00418041,PMC8006606,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8006606/,trn,ctgov,FALSE,TRUE,TRUE,metadata,TRUE,location updated in april 2024: metadata as other_location,,no
 UMIN:000000562,PMC8006606,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8006606/,trn,umin,FALSE,TRUE,FALSE,,TRUE,,,no
 DRKS00015615,PMC8006725,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8006725/,trn,drks,FALSE,TRUE,FALSE,,TRUE,,,no
 NCT04198701,PMC8772438,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8772438/,trn,ctgov,TRUE,FALSE,TRUE,introduction,TRUE,,,no
@@ -161,9 +161,8 @@ NL6435,PMC8713010,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8713
 NCT02969356,PMC8191476,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8191476/,trn,ctgov,TRUE,TRUE,TRUE,footnotes,TRUE,,,yes
 NCT02274428,PMC8176840,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8176840/,trn,ctgov,FALSE,FALSE,TRUE,discussion,TRUE,,,no
 NCT03406845,PMC8902179,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8902179/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
-NCT01768585,PMC8024658,FALSE,TRUE,FALSE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
+NCT01768585,PMC8024658,FALSE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,Merged with a row with trial id NCT 01768585 per decision given that ctregistries is cleaning the detected identifier. ,,no
 2012–001989-15,PMC8024658,FALSE,FALSE,TRUE,FALSE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,eudract,FALSE,TRUE,FALSE,,TRUE,,,no
-NCT 01768585,PMC8024658,FALSE,FALSE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8024658/,trn,ctgov,FALSE,TRUE,FALSE,,TRUE,,,no
 NCT03328299,PMC8753994,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8753994/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,,yes
 NCT02780167,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,"there was another trn on the paper, but it seems it was not detected on this case (NCT03575871)",also NCT03349060 was not found - this made me aware of a bug!,yes
 NCT03349060,PMC8200343,TRUE,TRUE,TRUE,TRUE,https://pubmed.ncbi.nlm.nih.gov/PMC8200343/,trn,ctgov,TRUE,TRUE,FALSE,,TRUE,,NEW DATA TO EXTRACT! - Ready,yes
